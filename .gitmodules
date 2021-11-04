@@ -62,5 +62,5 @@
 	path = FreeRTOS-Plus/ThirdParty/tinycbor
 	url = https://github.com/intel/tinycbor
 [submodule "FreeRTOS-Plus/Source/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk"]
-	path = FreeRTOS-Plus/Source/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
+	path = FreeRTOS-Plus/Source/AWS/fleet-provisioning/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
 	url = https://github.com/aws/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
