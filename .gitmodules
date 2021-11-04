@@ -58,9 +58,9 @@
 [submodule "FreeRTOS/Demo/ThirdParty/Partner-Supported-Demos"]
 	path = FreeRTOS/Demo/ThirdParty/Partner-Supported-Demos
 	url = https://github.com/FreeRTOS/FreeRTOS-Partner-Supported-Demos
-[submodule "libraries/aws/fleet-provisioning-for-aws-iot-embedded-sdk"]
-	path = libraries/aws/fleet-provisioning-for-aws-iot-embedded-sdk
-	url = https://github.com/aws/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
-[submodule "libraries/3rdparty/tinycbor"]
-	path = libraries/3rdparty/tinycbor
+[submodule "FreeRTOS-Plus/ThirdParty/tinycbor"]
+	path = FreeRTOS-Plus/ThirdParty/tinycbor
 	url = https://github.com/intel/tinycbor
+[submodule "FreeRTOS-Plus/Source/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk"]
+	path = FreeRTOS-Plus/Source/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/Fleet-Provisioning-for-AWS-IoT-embedded-sdk

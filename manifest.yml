@@ -122,4 +122,18 @@ dependencies:
       url: "https://github.com/FreeRTOS/FreeRTOS-Partner-Supported-Demos"
       path: "FreeRTOS/Demo/ThirdParty/Partner-Supported-Demos"
 
+  - name: "Fleet-Provisioning-for-AWS-IoT-embedded-sdk"
+    version: "3ec98fc"
+    repository:
+      type: "git"
+      url: "https://github.com/aws/Fleet-Provisioning-for-AWS-IoT-embedded-sdk"
+      path: "FreeRTOS-Plus/Source/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk"
+
+  - name: "tinycbor"
+    version: "6176e0a"
+    repository:
+      type: "git"
+      url: "https://github.com/intel/tinycbor"
+      path: "FreeRTOS-Plus/ThirdParty/tinycbor"
+      
 license: "MIT"
