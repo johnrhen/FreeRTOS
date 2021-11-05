@@ -613,14 +613,14 @@
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_csr.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\xtea.h" />
     <ClInclude Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.h" />
-    <ClInclude Include="defender_config.h" />
-    <ClInclude Include="mbedtls_config.h" />
+    <ClInclude Include="fleet_provisioning_config.h" />
+    <ClInclude Include="fleet_provisioning_serializer.h" />
+    <ClInclude Include="pkcs11_operations.h" />
+    <ClInclude Include="mqtt_operations.h" />
     <ClInclude Include="demo_config.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="FreeRTOSIPConfig.h" />
     <ClInclude Include="core_mqtt_config.h" />
-    <ClInclude Include="metrics_collector.h" />
-    <ClInclude Include="report_builder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
