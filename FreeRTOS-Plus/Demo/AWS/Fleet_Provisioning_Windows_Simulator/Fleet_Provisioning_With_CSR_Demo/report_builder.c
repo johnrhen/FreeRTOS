@@ -36,8 +36,8 @@
 /* Demo config. */
 #include "demo_config.h"
 
-/* Device Defender Client Library. */
-#include "defender.h"
+/* Fleet Provisioning Client Library. */
+#include "fleet_provisioning.h"
 
 /* Interface include. */
 #include "report_builder.h"
