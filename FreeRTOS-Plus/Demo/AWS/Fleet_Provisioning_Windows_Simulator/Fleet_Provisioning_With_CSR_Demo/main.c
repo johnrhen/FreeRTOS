@@ -54,7 +54,7 @@
 #include <stdbool.h>
 
 /* POSIX includes. */
-#include <unistd.h>
+
 #include <errno.h>
 
 /* Demo config. */
