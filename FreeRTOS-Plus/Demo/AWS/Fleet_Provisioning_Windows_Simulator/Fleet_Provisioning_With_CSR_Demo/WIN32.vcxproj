@@ -622,6 +622,7 @@
     <ClInclude Include="core_mqtt_config.h" />
     <ClInclude Include="metrics_collector.h" />
     <ClInclude Include="report_builder.h" />
+    <ClInclude Include="cbor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
