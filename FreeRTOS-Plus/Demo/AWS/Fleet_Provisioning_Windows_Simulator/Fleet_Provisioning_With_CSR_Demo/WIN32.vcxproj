@@ -519,7 +519,9 @@
     <ClInclude Include="..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging\logging_levels.h" />
     <ClInclude Include="..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging\logging_stack.h" />
     <ClInclude Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\include\core_mqtt_config_defaults.h" />
-    <ClInclude Include="..\..\..\..\Source\AWS\fleet-provisioning\source\include\fleet_provisioning.h" />
+    <ClInclude Include="..\..\..\..\Source\AWS\fleet-provisioning\source\include\fleet_provisioning.h">
+      <Filter>FreeRTOS+\FreeRTOS IoT Libraries\AWS\fleet-provisioning\include</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\Source\coreJSON\source\include\core_json.h" />
     <ClInclude Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\include\FreeRTOS_errno_TCP.h" />
     <ClInclude Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\include\tcp_netstat.h" />
