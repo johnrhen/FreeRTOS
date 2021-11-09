@@ -534,7 +534,7 @@
     <ClInclude Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\include\core_mqtt_serializer.h" />
     <ClInclude Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\include\core_mqtt_state.h" />
     <ClInclude Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\include\core_mqtt.h" />
-    <ClInclude Include="..\..\..\ThirdParty\tinycbor\src\cbor.h" />
+    <ClInclude Include="..\..\..\..\ThirdParty\tinycbor\src\cbor.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\aes.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\aesni.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\arc4.h" />
