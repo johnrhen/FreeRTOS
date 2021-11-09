@@ -169,6 +169,9 @@
     <ClCompile Include="..\..\..\..\Source\Application-Protocols\network_transport\freertos_plus_tcp\sockets_wrapper.c">
       <Filter>FreeRTOS+\FreeRTOS IoT Libraries\platform\transport</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\ThirdParty\tinycbor\src\cbor.h">
+      <Filter>FreeRTOS+\tinycbor\src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\aes.c">
       <Filter>FreeRTOS+\mbedtls\library</Filter>
     </ClCompile>
