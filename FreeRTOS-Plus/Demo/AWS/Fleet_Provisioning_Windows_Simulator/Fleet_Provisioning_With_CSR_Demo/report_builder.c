@@ -53,61 +53,61 @@
 /* Formats used to generate the JSON report. */
 #define reportbuilderJSON_PORT_OBJECT_FORMAT \
     "{"                                      \
-    "\""DEFENDER_REPORT_PORT_KEY"\": %u"     \
+    "\""FLEET_PROVISIONING_REPORT_PORT_KEY"\": %u"     \
     "},"
 
 #define reportbuilderJSON_CONNECTION_OBJECT_FORMAT              \
     "{"                                                         \
-    "\""DEFENDER_REPORT_LOCAL_PORT_KEY"\": %u,"                 \
-    "\""DEFENDER_REPORT_REMOTE_ADDR_KEY"\": \"%u.%u.%u.%u:%u\"" \
+    "\""FLEET_PROVISIONING_REPORT_LOCAL_PORT_KEY"\": %u,"                 \
+    "\""FLEET_PROVISIONING_REPORT_REMOTE_ADDR_KEY"\": \"%u.%u.%u.%u:%u\"" \
     "},"
 
 #define reportbuilderJSON_REPORT_FORMAT_PART1          \
     "{"                                                \
-    "\""DEFENDER_REPORT_HEADER_KEY"\": {"              \
-    "\""DEFENDER_REPORT_ID_KEY"\": %u,"                \
-    "\""DEFENDER_REPORT_VERSION_KEY"\": \"%u.%u\""     \
+    "\""FLEET_PROVISIONING_REPORT_HEADER_KEY"\": {"              \
+    "\""FLEET_PROVISIONING_REPORT_ID_KEY"\": %u,"                \
+    "\""FLEET_PROVISIONING_REPORT_VERSION_KEY"\": \"%u.%u\""     \
     "},"                                               \
-    "\""DEFENDER_REPORT_METRICS_KEY"\": {"             \
-    "\""DEFENDER_REPORT_TCP_LISTENING_PORTS_KEY"\": {" \
-    "\""DEFENDER_REPORT_PORTS_KEY"\": "
+    "\""FLEET_PROVISIONING_REPORT_METRICS_KEY"\": {"             \
+    "\""FLEET_PROVISIONING_REPORT_TCP_LISTENING_PORTS_KEY"\": {" \
+    "\""FLEET_PROVISIONING_REPORT_PORTS_KEY"\": "
 
 #define reportbuilderJSON_REPORT_FORMAT_PART2          \
     ","                                                \
-    "\""DEFENDER_REPORT_TOTAL_KEY"\": %u"              \
+    "\""FLEET_PROVISIONING_REPORT_TOTAL_KEY"\": %u"              \
     "},"                                               \
-    "\""DEFENDER_REPORT_UDP_LISTENING_PORTS_KEY"\": {" \
-    "\""DEFENDER_REPORT_PORTS_KEY"\": "
+    "\""FLEET_PROVISIONING_REPORT_UDP_LISTENING_PORTS_KEY"\": {" \
+    "\""FLEET_PROVISIONING_REPORT_PORTS_KEY"\": "
 
 #define reportbuilderJSON_REPORT_FORMAT_PART3              \
     ","                                                    \
-    "\""DEFENDER_REPORT_TOTAL_KEY"\": %u"                  \
+    "\""FLEET_PROVISIONING_REPORT_TOTAL_KEY"\": %u"                  \
     "},"                                                   \
-    "\""DEFENDER_REPORT_NETWORK_STATS_KEY"\": {"           \
-    "\""DEFENDER_REPORT_BYTES_IN_KEY"\": %u,"              \
-    "\""DEFENDER_REPORT_BYTES_OUT_KEY"\": %u,"             \
-    "\""DEFENDER_REPORT_PKTS_IN_KEY"\": %u,"               \
-    "\""DEFENDER_REPORT_PKTS_OUT_KEY"\": %u"               \
+    "\""FLEET_PROVISIONING_REPORT_NETWORK_STATS_KEY"\": {"           \
+    "\""FLEET_PROVISIONING_REPORT_BYTES_IN_KEY"\": %u,"              \
+    "\""FLEET_PROVISIONING_REPORT_BYTES_OUT_KEY"\": %u,"             \
+    "\""FLEET_PROVISIONING_REPORT_PKTS_IN_KEY"\": %u,"               \
+    "\""FLEET_PROVISIONING_REPORT_PKTS_OUT_KEY"\": %u"               \
     "},"                                                   \
-    "\""DEFENDER_REPORT_TCP_CONNECTIONS_KEY"\": {"         \
-    "\""DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY"\": {" \
-    "\""DEFENDER_REPORT_CONNECTIONS_KEY"\": "
+    "\""FLEET_PROVISIONING_REPORT_TCP_CONNECTIONS_KEY"\": {"         \
+    "\""FLEET_PROVISIONING_REPORT_ESTABLISHED_CONNECTIONS_KEY"\": {" \
+    "\""FLEET_PROVISIONING_REPORT_CONNECTIONS_KEY"\": "
 
 #define reportbuilderJSON_REPORT_FORMAT_PART4     \
     ","                                           \
-    "\""DEFENDER_REPORT_TOTAL_KEY"\": %u"         \
+    "\""FLEET_PROVISIONING_REPORT_TOTAL_KEY"\": %u"         \
     "}"                                           \
     "}"                                           \
     "},"                                          \
-    "\""DEFENDER_REPORT_CUSTOM_METRICS_KEY"\": {" \
+    "\""FLEET_PROVISIONING_REPORT_CUSTOM_METRICS_KEY"\": {" \
     "\"stack_high_water_mark\": ["                \
     "{"                                           \
-    "\""DEFENDER_REPORT_NUMBER_KEY"\": %u"        \
+    "\""FLEET_PROVISIONING_REPORT_NUMBER_KEY"\": %u"        \
     "}"                                           \
     "],"                                          \
     "\"task_numbers\": ["                         \
     "{"                                           \
-    "\""DEFENDER_REPORT_NUMBER_LIST_KEY"\": "
+    "\""FLEET_PROVISIONING_REPORT_NUMBER_LIST_KEY"\": "
 
 #define reportbuilderJSON_REPORT_FORMAT_PART5 \
     "}"                                       \
@@ -551,7 +551,7 @@ eReportBuilderStatus eGenerateJsonReport( char * pcBuffer,
                                        pxMetrics->pxNetworkStats->ulBytesSent,
                                        pxMetrics->pxNetworkStats->ulPacketsReceived,
                                        pxMetrics->pxNetworkStats->ulPacketsSent,
-                                       DEFENDER_REPORT_ESTABLISHED_CONNECTIONS_KEY );
+                                       FLEET_PROVISIONING_REPORT_ESTABLISHED_CONNECTIONS_KEY );
 
         if( !reportbuilderSNPRINTF_SUCCESS( lCharactersWritten, xRemainingBufferLength ) )
         {
