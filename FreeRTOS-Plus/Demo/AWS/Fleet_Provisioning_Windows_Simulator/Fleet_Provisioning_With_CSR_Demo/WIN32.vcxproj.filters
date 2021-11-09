@@ -764,10 +764,6 @@
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\xtea.h">
       <Filter>FreeRTOS+\mbedtls\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\ThirdParty\tinycbor\src\cbor.h">
-      <Filter>FreeRTOS+\tinycbor\src</Filter>
-    </ClInclude>
-    <ClInclude Include="cbor.h" />
     <ClInclude Include="metrics_collector.h" />
     <ClInclude Include="report_builder.h" />
     <ClInclude Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.h" />
