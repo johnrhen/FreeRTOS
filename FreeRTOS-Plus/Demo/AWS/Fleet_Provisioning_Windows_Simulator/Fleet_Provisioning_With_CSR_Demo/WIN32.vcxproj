@@ -488,8 +488,6 @@
     <ClCompile Include="DemoTasks\FleetProvisioningDemoExample.c" />
     <ClCompile Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="metrics_collector.c" />
-    <ClCompile Include="report_builder.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\FreeRTOS\Source\include\event_groups.h" />
