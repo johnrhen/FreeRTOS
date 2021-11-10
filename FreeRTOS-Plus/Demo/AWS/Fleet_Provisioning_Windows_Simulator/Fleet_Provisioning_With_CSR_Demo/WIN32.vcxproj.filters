@@ -419,6 +419,9 @@
     <ClCompile Include="metrics_collector.c" />
     <ClCompile Include="report_builder.c" />
     <ClCompile Include="main.c" />
+    <ClInclude Include="fleet_provisioning_serializer.c" />
+    <ClInclude Include="pkcs11_operations.c" />
+    <ClInclude Include="mqtt_operations.c" />
     <ClCompile Include="..\..\..\..\Source\AWS\device-defender\source\defender.c">
       <Filter>FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender</Filter>
     </ClCompile>

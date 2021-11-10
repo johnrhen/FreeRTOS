@@ -617,8 +617,11 @@
     <ClInclude Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.h" />
     <ClInclude Include="fleet_provisioning_config.h" />
     <ClInclude Include="fleet_provisioning_serializer.h" />
+    <ClInclude Include="fleet_provisioning_serializer.c" />
     <ClInclude Include="pkcs11_operations.h" />
+    <ClInclude Include="pkcs11_operations.c" />
     <ClInclude Include="mqtt_operations.h" />
+    <ClInclude Include="mqtt_operations.c" />
     <ClInclude Include="demo_config.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="FreeRTOSIPConfig.h" />
