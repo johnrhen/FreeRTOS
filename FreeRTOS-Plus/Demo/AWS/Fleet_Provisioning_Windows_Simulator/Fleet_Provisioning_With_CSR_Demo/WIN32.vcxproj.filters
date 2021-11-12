@@ -80,12 +80,6 @@
     <Filter Include="FreeRTOS+\FreeRTOS+TCP\tcp_utilities\include">
       <UniqueIdentifier>{9f1aaf81-1839-4673-b7e3-1501dd0edd02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender">
-      <UniqueIdentifier>{35c65887-47a1-496f-b632-8082be580456}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender\include">
-      <UniqueIdentifier>{974934dc-7cd5-40f6-b449-3b932adf89ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FreeRTOS+\FreeRTOS IoT Libraries\platform\backoff_algorithm">
       <UniqueIdentifier>{fcf93295-15e2-4a84-a5e9-b3c162e9f061}</UniqueIdentifier>
     </Filter>
@@ -385,12 +379,6 @@
     <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509.c">
       <Filter>FreeRTOS+\mbedtls\library</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_crt.c">
-      <Filter>FreeRTOS+\mbedtls\library</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_csr.c">
-      <Filter>FreeRTOS+\mbedtls\library</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509_create.c">
       <Filter>FreeRTOS+\mbedtls\library</Filter>
     </ClCompile>
@@ -410,15 +398,7 @@
       <Filter>FreeRTOS+\FreeRTOS IoT Libraries\standard\coreJSON</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.c" />
-    <ClCompile Include="DemoTasks\DefenderDemoExample.c">
-      <Filter>DemoTasks</Filter>
-    </ClCompile>
-    <ClCompile Include="metrics_collector.c" />
-    <ClCompile Include="report_builder.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="..\..\..\..\Source\AWS\device-defender\source\defender.c">
-      <Filter>FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\tcp_netstat.c">
       <Filter>FreeRTOS+\FreeRTOS+TCP\tcp_utilities</Filter>
     </ClCompile>
@@ -432,6 +412,17 @@
       <Filter>FreeRTOS+\FreeRTOS IoT Libraries\standard\coreMQTT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\FreeRTOS-Plus\Demo\Common\Logging\windows\Logging_WinSim.c" />
+    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\error.c" />
+    <ClCompile Include="fleet_provisioning_serializer.c" />
+    <ClCompile Include="mqtt_operations.c" />
+    <ClCompile Include="pkcs11_operations.c" />
+    <ClCompile Include="DemoTasks\FleetProvisioningDemoExample.c" />
+    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_crt.c">
+      <Filter>FreeRTOS+\mbedtls\library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_csr.c">
+      <Filter>FreeRTOS+\mbedtls\library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\include\NetworkInterface.h">
@@ -758,25 +749,11 @@
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_crt.h">
       <Filter>FreeRTOS+\mbedtls\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_csr.h">
-      <Filter>FreeRTOS+\mbedtls\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\xtea.h">
       <Filter>FreeRTOS+\mbedtls\include</Filter>
     </ClInclude>
-    <ClInclude Include="metrics_collector.h" />
-    <ClInclude Include="report_builder.h" />
     <ClInclude Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.h" />
-    <ClInclude Include="..\..\..\..\Source\AWS\device-defender\source\include\defender.h">
-      <Filter>FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Source\AWS\device-defender\source\include\defender_config_defaults.h">
-      <Filter>FreeRTOS+\FreeRTOS IoT Libraries\AWS\device-defender\include</Filter>
-    </ClInclude>
     <ClInclude Include="core_mqtt_config.h">
-      <Filter>Config</Filter>
-    </ClInclude>
-    <ClInclude Include="defender_config.h">
       <Filter>Config</Filter>
     </ClInclude>
     <ClInclude Include="demo_config.h">
@@ -814,6 +791,19 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\Source\coreJSON\source\include\core_json.h">
       <Filter>FreeRTOS+\FreeRTOS IoT Libraries\standard\coreJSON\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\error.h" />
+    <ClInclude Include="fleet_provisioning_serializer.h" />
+    <ClInclude Include="mqtt_operations.h" />
+    <ClInclude Include="pkcs11_operations.h" />
+    <ClInclude Include="..\..\..\..\Source\corePKCS11\source\include\core_pkcs11.h" />
+    <ClInclude Include="..\..\..\..\Source\AWS\fleet-provisioning\source\include\fleet_provisioning.h" />
+    <ClInclude Include="..\..\..\..\ThirdParty\tinycbor\src\cbor.h" />
+    <ClInclude Include="core_pkcs11_config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="fleet_provisioning_config.h">
+      <Filter>Config</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

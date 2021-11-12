@@ -58,7 +58,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\Source\FreeRTOS-Plus-Trace\Include;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\include;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\portable\BufferManagement;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\portable\Compiler\MSVC;..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging;..\..\..\Common\WinPCap;..\..\..\..\..\FreeRTOS\Source\include;..\..\..\..\..\FreeRTOS\Source\portable\MSVC-MingW;..\..\..\..\Source\Application-Protocols\coreMQTT\source\include;..\..\..\..\Source\Application-Protocols\coreMQTT\source\interface;..\..\..\..\Source\Utilities\backoff_algorithm\source\include;..\..\..\..\Source\Application-Protocols\network_transport\freertos_plus_tcp;..\..\..\..\Source\Application-Protocols\network_transport\freertos_plus_tcp\using_mbedtls;..\..\..\..\Source\Utilities\mbedtls_freertos;..\..\..\..\..\Source\mbedtls_utils;..\..\..\..\ThirdParty\mbedtls\include;..\..\..\..\Source\AWS\device-defender\source\include;..\..\..\..\Source\coreJSON\source\include;..\..\Mqtt_Demo_Helpers;..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\include;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\Source\FreeRTOS-Plus-Trace\Include;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\include;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\portable\BufferManagement;..\..\..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-TCP\portable\Compiler\MSVC;..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging;..\..\..\Common\WinPCap;..\..\..\..\..\FreeRTOS\Source\include;..\..\..\..\..\FreeRTOS\Source\portable\MSVC-MingW;..\..\..\..\Source\Application-Protocols\coreMQTT\source\include;..\..\..\..\Source\Application-Protocols\coreMQTT\source\interface;..\..\..\..\Source\Utilities\backoff_algorithm\source\include;..\..\..\..\Source\Application-Protocols\network_transport\freertos_plus_tcp;..\..\..\..\Source\Application-Protocols\network_transport\freertos_plus_tcp\using_mbedtls;..\..\..\..\Source\Utilities\mbedtls_freertos;..\..\..\..\ThirdParty\mbedtls\include;..\..\..\..\Source\AWS\fleet-provisioning\source\include;..\..\..\..\Source\coreJSON\source\include;..\..\Mqtt_Demo_Helpers;..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\include;.;..\..\..\..\ThirdParty\tinycbor\src;..\..\..\..\Source\corePKCS11\source\include;..\..\..\..\Source\corePKCS11\source\;..\..\..\..\Source\corePKCS11\source\dependency\3rdparty\pkcs11;..\..\..\..\Source\corePKCS11\source\dependency\3rdparty\mbedtls_utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>MBEDTLS_CONFIG_FILE="mbedtls_config.h";WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -166,7 +166,6 @@
     <ClCompile Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\core_mqtt_serializer.c" />
     <ClCompile Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\core_mqtt_state.c" />
     <ClCompile Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\core_mqtt.c" />
-    <ClCompile Include="..\..\..\..\Source\AWS\device-defender\source\defender.c" />
     <ClCompile Include="..\..\..\..\Source\coreJSON\source\core_json.c" />
     <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\aes.c">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
@@ -456,14 +455,8 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_crt.c">
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_csr.c">
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
-      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
-    </ClCompile>
+    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_crt.c" />
+    <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509write_csr.c" />
     <ClCompile Include="..\..\..\..\ThirdParty\mbedtls\library\x509_create.c">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
@@ -485,11 +478,12 @@
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\FreeRTOS-Plus\Demo\Common\Logging\windows\Logging_WinSim.c" />
-    <ClCompile Include="DemoTasks\DefenderDemoExample.c" />
     <ClCompile Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.c" />
+    <ClCompile Include="DemoTasks\FleetProvisioningDemoExample.c" />
+    <ClCompile Include="fleet_provisioning_serializer.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="metrics_collector.c" />
-    <ClCompile Include="report_builder.c" />
+    <ClCompile Include="mqtt_operations.c" />
+    <ClCompile Include="pkcs11_operations.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\FreeRTOS\Source\include\event_groups.h" />
@@ -519,9 +513,9 @@
     <ClInclude Include="..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging\logging_levels.h" />
     <ClInclude Include="..\..\..\..\..\FreeRTOS-Plus\Source\Utilities\logging\logging_stack.h" />
     <ClInclude Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\include\core_mqtt_config_defaults.h" />
-    <ClInclude Include="..\..\..\..\Source\AWS\device-defender\source\include\defender.h" />
-    <ClInclude Include="..\..\..\..\Source\AWS\device-defender\source\include\defender_config_defaults.h" />
+    <ClInclude Include="..\..\..\..\Source\AWS\fleet-provisioning\source\include\fleet_provisioning.h" />
     <ClInclude Include="..\..\..\..\Source\coreJSON\source\include\core_json.h" />
+    <ClInclude Include="..\..\..\..\Source\corePKCS11\source\include\core_pkcs11.h" />
     <ClInclude Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\include\FreeRTOS_errno_TCP.h" />
     <ClInclude Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\include\tcp_netstat.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\error.h" />
@@ -610,17 +604,19 @@
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_crl.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_crt.h" />
-    <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\x509_csr.h" />
     <ClInclude Include="..\..\..\..\ThirdParty\mbedtls\include\mbedtls\xtea.h" />
+    <ClInclude Include="..\..\..\..\ThirdParty\tinycbor\src\cbor.h" />
     <ClInclude Include="..\..\Mqtt_Demo_Helpers\mqtt_demo_helpers.h" />
-    <ClInclude Include="defender_config.h" />
+    <ClInclude Include="core_pkcs11_config.h" />
+    <ClInclude Include="fleet_provisioning_config.h" />
+    <ClInclude Include="fleet_provisioning_serializer.h" />
     <ClInclude Include="mbedtls_config.h" />
     <ClInclude Include="demo_config.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="FreeRTOSIPConfig.h" />
     <ClInclude Include="core_mqtt_config.h" />
-    <ClInclude Include="metrics_collector.h" />
-    <ClInclude Include="report_builder.h" />
+    <ClInclude Include="mqtt_operations.h" />
+    <ClInclude Include="pkcs11_operations.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
