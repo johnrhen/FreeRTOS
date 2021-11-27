@@ -71,6 +71,10 @@ extern void vLoggingPrintf( const char * pcFormatString,
 
 #include "logging_stack.h"
 
+/************ End of logging configuration ****************/
+
+#include <stdlib.h>
+
 /**
  * @brief Malloc API used by core_pkcs11.h
  */
@@ -171,11 +175,31 @@ extern void vLoggingPrintf( const char * pcFormatString,
 #define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS       ( "Device Cert" )
 
 /**
+ * @brief The PKCS #11 label for the object to be used for HMAC operations.
+ */
+#define pkcs11configLABEL_HMAC_KEY                         ( "HMAC Key" )
+
+/**
+ * @brief The PKCS #11 label for the object to be used for CMAC operations.
+ */
+#define pkcs11configLABEL_CMAC_KEY                         ( "CMAC Key" )
+
+/**
  * @brief The PKCS #11 label for the object to be used for code verification.
  *
  * Used by over-the-air update code to verify an incoming signed image.
  */
 #define pkcs11configLABEL_CODE_VERIFICATION_KEY            ( "Code Verify Key" )
+
+/**
+ * @brief The PKCS #11 label for the claim certificate for Fleet Provisioning.
+ */
+#define pkcs11configLABEL_CLAIM_CERTIFICATE                ( "Claim Cert" )
+
+/**
+ * @brief The PKCS #11 label for the claim private key for Fleet Provisioning.
+ */
+#define pkcs11configLABEL_CLAIM_PRIVATE_KEY                ( "Claim Key" )
 
 /**
  * @brief The PKCS #11 label for Just-In-Time-Provisioning.

@@ -94,9 +94,9 @@
 #define PROVISIONING_TEMPLATE_NAME_LENGTH    ( ( uint16_t ) ( sizeof( democonfigPROVISIONING_TEMPLATE_NAME ) - 1 ) )
 
 /**
- * @brief The length of #DEVICE_SERIAL_NUMBER.
+ * @brief The length of #democonfigDEVICE_SERIAL_NUMBER.
  */
-#define DEVICE_SERIAL_NUMBER_LENGTH          ( ( uint16_t ) ( sizeof( DEVICE_SERIAL_NUMBER ) - 1 ) )
+#define DEVICE_SERIAL_NUMBER_LENGTH          ( ( uint16_t ) ( sizeof( democonfigDEVICE_SERIAL_NUMBER ) - 1 ) )
 
 /**
  * @brief Size of AWS IoT Thing name buffer.
@@ -175,7 +175,7 @@ static size_t thingNameLength;
  * APIs. When the MQTT publish callback receives an expected Fleet Provisioning
  * accepted payload, it copies it into this buffer.
  */
-static uint8_t payloadBuffer[ NETWORK_BUFFER_SIZE ];
+static uint8_t payloadBuffer[ democonfigNETWORK_BUFFER_SIZE ];
 
 /**
  * @brief Length of the payload stored in #payloadBuffer. This is set by the
@@ -518,6 +518,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         else
         {
             /* Insert the claim credentials into the PKCS #11 module */
+            /* TODO: Alter from cert paths to read from the files */
             status = loadClaimCredentials(p11Session,
                 CLAIM_CERT_PATH,
                 pkcs11configLABEL_CLAIM_CERTIFICATE,
@@ -589,7 +590,7 @@ int prvFleetProvisioningTask(void* pvParameters)
             /* Create the request payload containing the CSR to publish to the
              * CreateCertificateFromCsr APIs. */
             status = generateCsrRequest( payloadBuffer,
-                                         NETWORK_BUFFER_SIZE,
+                                         democonfigNETWORK_BUFFER_SIZE,
                                          csr,
                                          csrLength,
                                          &payloadLength );
@@ -660,10 +661,10 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             /* Create the request payload to publish to the RegisterThing API. */
             status = generateRegisterThingRequest( payloadBuffer,
-                                                   NETWORK_BUFFER_SIZE,
+                                                   democonfigNETWORK_BUFFER_SIZE,
                                                    ownershipToken,
                                                    ownershipTokenLength,
-                                                   DEVICE_SERIAL_NUMBER,
+                                                   democonfigDEVICE_SERIAL_NUMBER,
                                                    DEVICE_SERIAL_NUMBER_LENGTH,
                                                    &payloadLength );
         }

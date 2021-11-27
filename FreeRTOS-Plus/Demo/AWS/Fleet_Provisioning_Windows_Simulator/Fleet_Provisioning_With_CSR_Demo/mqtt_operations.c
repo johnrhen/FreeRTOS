@@ -71,8 +71,8 @@
 #define AWS_MQTT_PORT    ( 8883 )
 #endif
 
-#ifndef NETWORK_BUFFER_SIZE
-#define NETWORK_BUFFER_SIZE    ( 1024U )
+#ifndef democonfigNETWORK_BUFFER_SIZE
+#define democonfigNETWORK_BUFFER_SIZE    ( 1024U )
 #endif
 
 /**
@@ -170,7 +170,7 @@
 /**
  * @brief The MQTT metrics string expected by AWS IoT MQTT Broker.
  */
-#define METRICS_STRING                           "?SDK=" OS_NAME "&Version=" OS_VERSION "&Platform=" HARDWARE_PLATFORM_NAME "&MQTTLib=" MQTT_LIB
+#define METRICS_STRING                           "?SDK=" democonfigOS_NAME "&Version=" democonfigOS_VERSION "&Platform=" democonfigHARDWARE_PLATFORM_NAME "&MQTTLib=" democonfigMQTT_LIB
 
 /**
  * @brief The length of the MQTT metrics string.
@@ -237,7 +237,7 @@ static PublishPackets_t outgoingPublishPackets[ MAX_OUTGOING_PUBLISHES ] = { 0 }
 /**
  * @brief The network buffer must remain valid for the lifetime of the MQTT context.
  */
-static uint8_t buffer[ NETWORK_BUFFER_SIZE ];
+static uint8_t buffer[ democonfigNETWORK_BUFFER_SIZE ];
 
 /**
  * @brief The MQTT context used for MQTT operation.
@@ -382,8 +382,8 @@ static bool connectToBrokerWithBackoffRetries( NetworkContext_t * pNetworkContex
     pNetworkContext->pParams = &tlsContext;
 
     /* Initialize credentials for establishing TLS session. */
-    tlsCredentials.pRootCa = democonfigROOT_CA_CERT_PATH;
-    tlsCredentials.rootCaSize = sizeof(democonfigROOT_CA_CERT_PATH);
+    tlsCredentials.pRootCa = democonfigROOT_CA_PEM;
+    tlsCredentials.rootCaSize = sizeof(democonfigROOT_CA_PEM);
     //tlsCredentials.pClientCertLabel = pClientCertLabel;
     //tlsCredentials.pPrivateKeyLabel = pPrivateKeyLabel;
     //tlsCredentials.p11Session = p11Session;
@@ -700,7 +700,7 @@ bool EstablishMqttSession( MQTTPublishCallback_t publishCallback,
 
         /* Fill the values for network buffer. */
         networkBuffer.pBuffer = buffer;
-        networkBuffer.size = NETWORK_BUFFER_SIZE;
+        networkBuffer.size = democonfigNETWORK_BUFFER_SIZE;
 
         /* Remember the publish callback supplied. */
         appPublishCallback = publishCallback;
