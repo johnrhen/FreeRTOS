@@ -81,23 +81,17 @@
  * These configurations are required. Throw compilation error if it is not
  * defined.
  */
-#ifndef PROVISIONING_TEMPLATE_NAME
-    #error "Please define PROVISIONING_TEMPLATE_NAME to the template name registered with AWS IoT Core in demo_config.h."
+#ifndef democonfigPROVISIONING_TEMPLATE_NAME
+    #error "Please define democonfigPROVISIONING_TEMPLATE_NAME to the template name registered with AWS IoT Core in demo_config.h."
 #endif
-#ifndef CLAIM_CERT_PATH
-    #error "Please define path to claim certificate (CLAIM_CERT_PATH) in demo_config.h."
-#endif
-#ifndef CLAIM_PRIVATE_KEY_PATH
-    #error "Please define path to claim private key (CLAIM_PRIVATE_KEY_PATH) in demo_config.h."
-#endif
-#ifndef DEVICE_SERIAL_NUMBER
-    #error "Please define a serial number (DEVICE_SERIAL_NUMBER) in demo_config.h."
+#ifndef democonfigDEVICE_SERIAL_NUMBER
+    #error "Please define a serial number (democonfigDEVICE_SERIAL_NUMBER) in demo_config.h."
 #endif
 
 /**
- * @brief The length of #PROVISIONING_TEMPLATE_NAME.
+ * @brief The length of #democonfigPROVISIONING_TEMPLATE_NAME.
  */
-#define PROVISIONING_TEMPLATE_NAME_LENGTH    ( ( uint16_t ) ( sizeof( PROVISIONING_TEMPLATE_NAME ) - 1 ) )
+#define PROVISIONING_TEMPLATE_NAME_LENGTH    ( ( uint16_t ) ( sizeof( democonfigPROVISIONING_TEMPLATE_NAME ) - 1 ) )
 
 /**
  * @brief The length of #DEVICE_SERIAL_NUMBER.
@@ -402,26 +396,26 @@ static bool subscribeToRegisterThingResponseTopics( void )
 {
     bool status;
 
-    status = SubscribeToTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( PROVISIONING_TEMPLATE_NAME ),
+    status = SubscribeToTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                FP_CBOR_REGISTER_ACCEPTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
     if( status == false )
     {
         LogError( ( "Failed to subscribe to fleet provisioning topic: %.*s.",
                     FP_CBOR_REGISTER_ACCEPTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
-                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( PROVISIONING_TEMPLATE_NAME ) ) );
+                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
     }
 
     if( status == true )
     {
-        status = SubscribeToTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( PROVISIONING_TEMPLATE_NAME ),
+        status = SubscribeToTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                    FP_CBOR_REGISTER_REJECTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
         if( status == false )
         {
             LogError( ( "Failed to subscribe to fleet provisioning topic: %.*s.",
                         FP_CBOR_REGISTER_REJECTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
-                        FP_CBOR_REGISTER_REJECTED_TOPIC( PROVISIONING_TEMPLATE_NAME ) ) );
+                        FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
         }
     }
 
@@ -433,26 +427,26 @@ static bool unsubscribeFromRegisterThingResponseTopics( void )
 {
     bool status;
 
-    status = UnsubscribeFromTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( PROVISIONING_TEMPLATE_NAME ),
+    status = UnsubscribeFromTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                    FP_CBOR_REGISTER_ACCEPTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
     if( status == false )
     {
         LogError( ( "Failed to unsubscribe from fleet provisioning topic: %.*s.",
                     FP_CBOR_REGISTER_ACCEPTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
-                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( PROVISIONING_TEMPLATE_NAME ) ) );
+                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
     }
 
     if( status == true )
     {
-        status = UnsubscribeFromTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( PROVISIONING_TEMPLATE_NAME ),
+        status = UnsubscribeFromTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                        FP_CBOR_REGISTER_REJECTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
         if( status == false )
         {
             LogError( ( "Failed to unsubscribe from fleet provisioning topic: %.*s.",
                         FP_CBOR_REGISTER_REJECTED_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
-                        FP_CBOR_REGISTER_REJECTED_TOPIC( PROVISIONING_TEMPLATE_NAME ) ) );
+                        FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
         }
     }
 
@@ -683,7 +677,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( status == true )
         {
             /* Publish the RegisterThing request. */
-            PublishToTopic( FP_CBOR_REGISTER_PUBLISH_TOPIC( PROVISIONING_TEMPLATE_NAME ),
+            PublishToTopic( FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                             FP_CBOR_REGISTER_PUBLISH_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
                             ( char * ) payloadBuffer,
                             payloadLength );
@@ -692,7 +686,7 @@ int prvFleetProvisioningTask(void* pvParameters)
             {
                 LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
                             FP_CBOR_REGISTER_PUBLISH_LENGTH( PROVISIONING_TEMPLATE_NAME_LENGTH ),
-                            FP_CBOR_REGISTER_PUBLISH_TOPIC( PROVISIONING_TEMPLATE_NAME ) ) );
+                            FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
             }
         }
 
