@@ -650,7 +650,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             /* Create the request payload containing the CSR to publish to the
              * CreateCertificateFromCsr APIs. */
-            xStatus = generateCsrRequest( pucPayloadBuffer,
+            xStatus = xGenerateCsrRequest( pucPayloadBuffer,
                                          democonfigNETWORK_BUFFER_SIZE,
                                          pcCsr,
                                          xCsrLength,
@@ -683,7 +683,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             /* From the response, extract the certificate, certificate ID, and
              * certificate ownership token. */
-            xStatus = parseCsrResponse( pucPayloadBuffer,
+            xStatus = xParseCsrResponse( pucPayloadBuffer,
                                        xPayloadLength,
                                        pcCertificate,
                                        &xCertificateLength,
@@ -721,7 +721,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xStatus == true )
         {
             /* Create the request payload to publish to the RegisterThing API. */
-            xStatus = generateRegisterThingRequest( pucPayloadBuffer,
+            xStatus = xGenerateRegisterThingRequest( pucPayloadBuffer,
                                                    democonfigNETWORK_BUFFER_SIZE,
                                                    pcOwnershipToken,
                                                    xOwnershipTokenLength,
@@ -762,7 +762,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             /* Extract the Thing name from the response. */
             xThingNameLength = fpdemoMAX_THING_NAME_LENGTH;
-            xStatus = parseRegisterThingResponse( pucPayloadBuffer,
+            xStatus = xParseRegisterThingResponse( pucPayloadBuffer,
                                                  xPayloadLength,
                                                  pcThingName,
                                                  &xThingNameLength );

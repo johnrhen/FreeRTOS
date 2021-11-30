@@ -36,37 +36,37 @@
  * CreateCertificateFromCsr API in order to request a certificate from AWS IoT
  * for the included Certificate Signing Request (CSR).
  *
- * @param[in] pBuffer Buffer into which to write the publish request payload.
- * @param[in] bufferLength Length of #pBuffer.
- * @param[in] pCsr The CSR to include in the request payload.
- * @param[in] csrLength The length of #pCsr.
- * @param[out] pOutLengthWritten The length of the publish request payload.
+ * @param[in] pucBuffer Buffer into which to write the publish request payload.
+ * @param[in] xBufferLength Length of #pucBuffer.
+ * @param[in] pcCsr The CSR to include in the request payload.
+ * @param[in] xCsrLength The length of #pcCsr.
+ * @param[out] pxOutLengthWritten The length of the publish request payload.
  */
-bool generateCsrRequest( uint8_t * pBuffer,
-                         size_t bufferLength,
-                         const char * pCsr,
-                         size_t csrLength,
-                         size_t * pOutLengthWritten );
+bool xGenerateCsrRequest( uint8_t * pucBuffer,
+                         size_t xBufferLength,
+                         const char * pcCsr,
+                         size_t xCsrLength,
+                         size_t * pxOutLengthWritten );
 
 /**
  * @brief Creates the request payload to be published to the RegisterThing API
  * in order to activate the provisioned certificate and receive a Thing name.
  *
- * @param[in] pBuffer Buffer into which to write the publish request payload.
- * @param[in] bufferLength Length of #buffer.
- * @param[in] pCertificateOwnershipToken The certificate's certificate
+ * @param[in] pucBuffer Buffer into which to write the publish request payload.
+ * @param[in] xBufferLength Length of #buffer.
+ * @param[in] pcCertificateOwnershipToken The certificate's certificate
  * ownership token.
- * @param[in] certificateOwnershipTokenLength Length of
+ * @param[in] xCertificateOwnershipTokenLength Length of
  * #certificateOwnershipToken.
- * @param[out] pOutLengthWritten The length of the publish request payload.
+ * @param[out] pxOutLengthWritten The length of the publish request payload.
  */
-bool generateRegisterThingRequest( uint8_t * pBuffer,
-                                   size_t bufferLength,
-                                   const char * pCertificateOwnershipToken,
-                                   size_t certificateOwnershipTokenLength,
-                                   const char * pSerial,
-                                   size_t serialLength,
-                                   size_t * pOutLengthWritten );
+bool xGenerateRegisterThingRequest( uint8_t * pucBuffer,
+                                   size_t xBufferLength,
+                                   const char * pcCertificateOwnershipToken,
+                                   size_t xCertificateOwnershipTokenLength,
+                                   const char * pcSerial,
+                                   size_t xSerialLength,
+                                   size_t * pxOutLengthWritten );
 
 /**
  * @brief Extracts the certificate, certificate ID, and certificate ownership
@@ -74,39 +74,39 @@ bool generateRegisterThingRequest( uint8_t * pBuffer,
  * to the provided buffers so that they can outlive the data in the response
  * buffer and as CBOR strings may be chunked.
  *
- * @param[in] pResponse The response payload.
- * @param[in] length Length of #pResponse.
- * @param[in] pCertificateBuffer The buffer to which to write the certificate.
- * @param[in,out] pCertificateBufferLength The length of #pCertificateBuffer.
+ * @param[in] pucResponse The response payload.
+ * @param[in] xLength Length of #pucResponse.
+ * @param[in] pcCertificateBuffer The buffer to which to write the certificate.
+ * @param[in,out] pxCertificateBufferLength The length of #pcCertificateBuffer.
  * The length written is output here.
- * @param[in] pCertificateIdBuffer The buffer to which to write the certificate
+ * @param[in] pcCertificateIdBuffer The buffer to which to write the certificate
  * ID.
- * @param[in,out] pCertificateIdBufferLength The length of
- * #pCertificateIdBuffer. The length written is output here.
- * @param[in] pOwnershipTokenBuffer The buffer to which to write the
+ * @param[in,out] pxCertificateIdBufferLength The length of
+ * #pcCertificateIdBuffer. The length written is output here.
+ * @param[in] pcOwnershipTokenBuffer The buffer to which to write the
  * certificate ownership token.
- * @param[in,out] pOwnershipTokenBufferLength The length of
- * #pOwnershipTokenBuffer. The length written is output here.
+ * @param[in,out] pxOwnershipTokenBufferLength The length of
+ * #pcOwnershipTokenBuffer. The length written is output here.
  */
-bool parseCsrResponse( const uint8_t * pResponse,
-                       size_t length,
-                       char * pCertificateBuffer,
-                       size_t * pCertificateBufferLength,
-                       char * pCertificateIdBuffer,
-                       size_t * pCertificateIdBufferLength,
-                       char * pOwnershipTokenBuffer,
-                       size_t * pOwnershipTokenBufferLength );
+bool xParseCsrResponse( const uint8_t * pucResponse,
+                       size_t xLength,
+                       char * pcCertificateBuffer,
+                       size_t * pxCertificateBufferLength,
+                       char * pcCertificateIdBuffer,
+                       size_t * pxCertificateIdBufferLength,
+                       char * pcOwnershipTokenBuffer,
+                       size_t * pxOwnershipTokenBufferLength );
 
 /**
  * @brief Extracts the Thing name from a RegisterThing accepted response.
  *
- * @param[in] pResponse The response document.
- * @param[in] length Length of #pResponse.
- * @param[in] pThingNameBuffer The buffer to which to write the Thing name.
- * @param[in,out] pThingNameBufferLength The length of #pThingNameBuffer. The
+ * @param[in] pucResponse The response document.
+ * @param[in] xLength Length of #pucResponse.
+ * @param[in] pcThingNameBuffer The buffer to which to write the Thing name.
+ * @param[in,out] pxThingNameBufferLength The length of #pcThingNameBuffer. The
  * written length is output here.
  */
-bool parseRegisterThingResponse( const uint8_t * pResponse,
-                                 size_t length,
-                                 char * pThingNameBuffer,
-                                 size_t * pThingNameBufferLength );
+bool xParseRegisterThingResponse( const uint8_t * pucResponse,
+                                 size_t xLength,
+                                 char * pcThingNameBuffer,
+                                 size_t * pxThingNameBufferLength );
