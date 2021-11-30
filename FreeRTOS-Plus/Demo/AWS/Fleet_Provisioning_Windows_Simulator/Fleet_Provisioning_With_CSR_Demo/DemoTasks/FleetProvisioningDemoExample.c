@@ -76,6 +76,7 @@
 #include "mqtt_operations.h"
 #include "pkcs11_operations.h"
 #include "fleet_provisioning_serializer.h"
+#include "using_mbedtls_pkcs11.h"
 
 /**
  * These configurations are required. Throw compilation error if it is not
@@ -86,6 +87,9 @@
 #endif
 #ifndef democonfigDEVICE_SERIAL_NUMBER
     #error "Please define a serial number (democonfigDEVICE_SERIAL_NUMBER) in demo_config.h."
+#endif
+#ifndef democonfigROOT_CA_PEM
+    #error "Please define Root CA certificate of the MQTT broker(democonfigROOT_CA_PEM) in demo_config.h."
 #endif
 
 /**
@@ -144,6 +148,16 @@
 #define OWNERSHIP_TOKEN_BUFFER_LENGTH                  512
 
 /**
+ * @brief Milliseconds per second.
+ */
+#define _MILLISECONDS_PER_SECOND                          ( 1000U )
+
+/**
+ * @brief Milliseconds per FreeRTOS tick.
+ */
+#define _MILLISECONDS_PER_TICK                            ( _MILLISECONDS_PER_SECOND / configTICK_RATE_HZ )
+
+/**
  * @brief Status values of the Fleet Provisioning response.
  */
 typedef enum
@@ -183,6 +197,27 @@ static uint8_t payloadBuffer[ democonfigNETWORK_BUFFER_SIZE ];
  */
 static size_t payloadLength;
 
+/**
+ * @brief Global entry time into the application to use as a reference timestamp
+ * in the #prvGetTimeMs function. #prvGetTimeMs will always return the difference
+ * between the current time and the global entry time. This will reduce the chances
+ * of overflow for the 32 bit unsigned integer used for holding the timestamp.
+ */
+static uint32_t ulGlobalEntryTimeMs;
+/*-----------------------------------------------------------*/
+
+/** 
+ * @brief Each compilation unit that consumes the NetworkContext must define it. 
+ * It should contain a single pointer to the type of your desired transport.
+ * When using multiple transports in the same compilation unit, define this pointer as void *.
+ *
+ * @note Transport stacks are defined in FreeRTOS-Plus/Source/Application-Protocols/network_transport.
+ */
+struct NetworkContext
+{
+    TlsTransportParams_t * pParams;
+};
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -221,6 +256,13 @@ static bool subscribeToRegisterThingResponseTopics( void );
  * @brief Unsubscribe from the RegisterThing accepted and rejected topics.
  */
 static bool unsubscribeFromRegisterThingResponseTopics( void );
+
+/**
+ * @brief The timer query function provided to the MQTT context.
+ *
+ * @return Time in milliseconds.
+ */
+static uint32_t prvGetTimeMs( void );
 
 /** TODO: Add description for FP demo
  * @brief The task used to demonstrate the FP API.
@@ -454,6 +496,25 @@ static bool unsubscribeFromRegisterThingResponseTopics( void )
 }
 /*-----------------------------------------------------------*/
 
+static uint32_t prvGetTimeMs( void )
+{
+    TickType_t xTickCount = 0;
+    uint32_t ulTimeMs = 0UL;
+
+    /* Get the current tick count. */
+    xTickCount = xTaskGetTickCount();
+
+    /* Convert the ticks to milliseconds. */
+    ulTimeMs = ( uint32_t ) xTickCount * _MILLISECONDS_PER_TICK;
+
+    /* Reduce ulGlobalEntryTimeMs from obtained time so as to always return the
+     * elapsed time in the application. */
+    ulTimeMs = ( uint32_t ) ( ulTimeMs - ulGlobalEntryTimeMs );
+
+    return ulTimeMs;
+}
+/*-----------------------------------------------------------*/
+
 /**
  * @brief Create the task that demonstrates the Fleet Provisioning library API
  */
@@ -500,6 +561,24 @@ int prvFleetProvisioningTask(void* pvParameters)
     int demoRunCount = 0;
     CK_RV pkcs11ret = CKR_OK;
 
+
+    uint32_t ulPublishCount = 0U;
+    const uint32_t ulMaxPublishCount = 5UL;
+    NetworkContext_t xNetworkContext = { 0 };
+    TlsTransportParams_t xTlsTransportParams = { 0 };
+    NetworkCredentials_t xNetworkCredentials = { 0 };
+    MQTTContext_t xMQTTContext = { 0 };
+    MQTTStatus_t xMQTTStatus;
+
+    /* Set the pParams member of the network context with desired transport. */
+    xNetworkContext.pParams = &xTlsTransportParams;
+
+    /* Set the entry time of the demo application. This entry time will be used
+     * to calculate relative time elapsed in the execution of the demo application,
+     * by the timer utility function that is provided to the MQTT library.
+     */
+    ulGlobalEntryTimeMs = prvGetTimeMs();
+
     do
     {
         /* Initialize the buffer lengths to their max lengths. */
@@ -508,28 +587,28 @@ int prvFleetProvisioningTask(void* pvParameters)
         ownershipTokenLength = OWNERSHIP_TOKEN_BUFFER_LENGTH;
 
         /* Initialize the PKCS #11 module */
-        pkcs11ret = xInitializePkcs11Session(&p11Session);
+        //pkcs11ret = xInitializePkcs11Session(&p11Session);
 
-        if (pkcs11ret != CKR_OK)
-        {
-            LogError(("Failed to initialize PKCS #11."));
-            status = false;
-        }
-        else
-        {
-            /* Insert the claim credentials into the PKCS #11 module */
-            /* TODO: Alter from cert paths to read from the files */
-            status = loadClaimCredentials(p11Session,
-                CLAIM_CERT_PATH,
-                pkcs11configLABEL_CLAIM_CERTIFICATE,
-                CLAIM_PRIVATE_KEY_PATH,
-                pkcs11configLABEL_CLAIM_PRIVATE_KEY);
+        //if (pkcs11ret != CKR_OK)
+        //{
+        //    LogError(("Failed to initialize PKCS #11."));
+        //    status = false;
+        //}
+        //else
+        //{
+        //    /* Insert the claim credentials into the PKCS #11 module */
+        //    /* TODO: Alter from cert paths to read from the files */
+        //    status = loadClaimCredentials(p11Session,
+        //        CLAIM_CERT_PATH,
+        //        pkcs11configLABEL_CLAIM_CERTIFICATE,
+        //        CLAIM_PRIVATE_KEY_PATH,
+        //        pkcs11configLABEL_CLAIM_PRIVATE_KEY);
 
-            if (status == false)
-            {
-                LogError(("Failed to provision PKCS #11 with claim credentials."));
-            }
-        }
+        //    if (status == false)
+        //    {
+        //        LogError(("Failed to provision PKCS #11 with claim credentials."));
+        //    }
+        //}
 
 
         /**** Connect to AWS IoT Core with provisioning claim credentials *****/
@@ -538,7 +617,7 @@ int prvFleetProvisioningTask(void* pvParameters)
          * credentials should allow use of the RegisterThing API and one of the
          * CreateCertificatefromCsr or CreateKeysAndCertificate.
          * In this demo we use CreateCertificatefromCsr. */
-        
+        status = true;
         if( status == true )
         {
             /* Attempts to connect to the AWS IoT MQTT broker. If the
@@ -546,7 +625,6 @@ int prvFleetProvisioningTask(void* pvParameters)
              * exponentially increase until maximum attempts are reached. */
             LogInfo(("Establishing MQTT session with claim certificate..."));
             status = EstablishMqttSession(provisioningPublishCallback,
-                p11Session,
                 pkcs11configLABEL_CLAIM_CERTIFICATE,
                 pkcs11configLABEL_CLAIM_PRIVATE_KEY);
 

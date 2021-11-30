@@ -282,14 +282,12 @@ static uint32_t generateRandomNumber( void );
  * of attempts are exhausted.
  *
  * @param[out] pNetworkContext The created network context.
- * @param[in] p11Session The PKCS #11 session to use.
  * @param[in] pClientCertLabel The client certificate PKCS #11 label to use.
  * @param[in] pPrivateKeyLabel The private key PKCS #11 label for the client certificate.
  *
  * @return false on failure; true on successful connection.
  */
 static bool connectToBrokerWithBackoffRetries( NetworkContext_t * pNetworkContext,
-                                               CK_SESSION_HANDLE p11Session,
                                                char * pClientCertLabel,
                                                char * pPrivateKeyLabel );
 
@@ -366,7 +364,6 @@ static uint32_t generateRandomNumber()
 /*-----------------------------------------------------------*/
 
 static bool connectToBrokerWithBackoffRetries( NetworkContext_t * pNetworkContext,
-                                               CK_SESSION_HANDLE p11Session,
                                                char * pClientCertLabel,
                                                char * pPrivateKeyLabel )
 {
@@ -384,8 +381,8 @@ static bool connectToBrokerWithBackoffRetries( NetworkContext_t * pNetworkContex
     /* Initialize credentials for establishing TLS session. */
     tlsCredentials.pRootCa = democonfigROOT_CA_PEM;
     tlsCredentials.rootCaSize = sizeof(democonfigROOT_CA_PEM);
-    //tlsCredentials.pClientCertLabel = pClientCertLabel;
-    //tlsCredentials.pPrivateKeyLabel = pPrivateKeyLabel;
+    tlsCredentials.pClientCertLabel = pClientCertLabel;
+    tlsCredentials.pPrivateKeyLabel = pPrivateKeyLabel;
     //tlsCredentials.p11Session = p11Session;
 
     /* AWS IoT requires devices to send the Server Name Indication (SNI)
@@ -655,7 +652,6 @@ static bool handlePublishResend( MQTTContext_t * pMqttContext )
 /*-----------------------------------------------------------*/
 
 bool EstablishMqttSession( MQTTPublishCallback_t publishCallback,
-                           CK_SESSION_HANDLE p11Session,
                            char * pClientCertLabel,
                            char * pPrivateKeyLabel )
 {
@@ -677,7 +673,6 @@ bool EstablishMqttSession( MQTTPublishCallback_t publishCallback,
     ( void ) memset( pNetworkContext, 0U, sizeof( NetworkContext_t ) );
 
     returnStatus = connectToBrokerWithBackoffRetries( pNetworkContext,
-                                                      p11Session,
                                                       pClientCertLabel,
                                                       pPrivateKeyLabel );
 

@@ -167,6 +167,7 @@
     <ClCompile Include="..\..\..\..\Source\corePKCS11\source\portable\os\core_pkcs11_pal_utils.c" />
     <ClCompile Include="..\..\..\..\Source\corePKCS11\source\portable\os\freertos_winsim\core_pkcs11_pal.c" />
     <ClCompile Include="..\..\..\..\Source\FreeRTOS-Plus-TCP\tools\tcp_utilities\tcp_netstat.c" />
+    <ClCompile Include="..\..\..\..\Source\Utilities\mbedtls_freertos\mbedtls_bio_freertos_plus_tcp.c" />
     <ClCompile Include="..\..\..\..\Source\Utilities\mbedtls_freertos\mbedtls_freertos_port.c" />
     <ClCompile Include="..\..\..\..\Source\Utilities\backoff_algorithm\source\backoff_algorithm.c" />
     <ClCompile Include="..\..\..\..\Source\Application-Protocols\coreMQTT\source\core_mqtt_serializer.c" />
