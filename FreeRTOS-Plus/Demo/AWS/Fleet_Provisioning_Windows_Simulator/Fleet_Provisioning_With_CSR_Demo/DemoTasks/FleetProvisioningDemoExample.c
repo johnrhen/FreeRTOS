@@ -587,28 +587,24 @@ int prvFleetProvisioningTask(void* pvParameters)
         ownershipTokenLength = OWNERSHIP_TOKEN_BUFFER_LENGTH;
 
         /* Initialize the PKCS #11 module */
-        //pkcs11ret = xInitializePkcs11Session(&p11Session);
+        pkcs11ret = xInitializePkcs11Session(&p11Session);
+        if (pkcs11ret != CKR_OK)
+        {
+            LogError(("Failed to initialize PKCS #11."));
+            status = false;
+        }
 
-        //if (pkcs11ret != CKR_OK)
-        //{
-        //    LogError(("Failed to initialize PKCS #11."));
-        //    status = false;
-        //}
-        //else
-        //{
-        //    /* Insert the claim credentials into the PKCS #11 module */
-        //    /* TODO: Alter from cert paths to read from the files */
-        //    status = loadClaimCredentials(p11Session,
-        //        CLAIM_CERT_PATH,
-        //        pkcs11configLABEL_CLAIM_CERTIFICATE,
-        //        CLAIM_PRIVATE_KEY_PATH,
-        //        pkcs11configLABEL_CLAIM_PRIVATE_KEY);
-
-        //    if (status == false)
-        //    {
-        //        LogError(("Failed to provision PKCS #11 with claim credentials."));
-        //    }
-        //}
+        status = generateKeyAndCsr( p11Session,
+                                        pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+                                        pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+                                        csr,
+                                        CSR_BUFFER_LENGTH,
+                                        &csrLength );
+        if (status == false)
+        {
+            LogError(("Failed to generate Key and Certificate Signing Request."));
+        }
+        pkcs11CloseSession( p11Session );
 
 
         /**** Connect to AWS IoT Core with provisioning claim credentials *****/
@@ -650,17 +646,6 @@ int prvFleetProvisioningTask(void* pvParameters)
              * topics. In this demo we use CBOR encoding for the payloads,
              * so we use the CBOR variants of the topics. */
             status = subscribeToCsrResponseTopics();
-        }
-
-        if( status == true )
-        {
-            /* Create a new key and CSR. */
-            status = generateKeyAndCsr( p11Session,
-                                        pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-                                        pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
-                                        csr,
-                                        CSR_BUFFER_LENGTH,
-                                        &csrLength );
         }
 
         if( status == true )
@@ -814,7 +799,6 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             LogInfo( ( "Establishing MQTT session with provisioned certificate..." ) );
             status = EstablishMqttSession( provisioningPublishCallback,
-                                           p11Session,
                                            pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
                                            pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS );
 
@@ -841,7 +825,7 @@ int prvFleetProvisioningTask(void* pvParameters)
             connectionEstablished = false;
         }
 
-        pkcs11CloseSession( p11Session );
+        //pkcs11CloseSession( p11Session );
 
         /**** Retry in case of failure ****************************************/
 
