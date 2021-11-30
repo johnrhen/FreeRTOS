@@ -32,26 +32,26 @@
 /**
  * @brief Application callback type to handle the incoming publishes.
  *
- * @param[in] pPublishInfo Pointer to publish info of the incoming publish.
- * @param[in] packetIdentifier Packet identifier of the incoming publish.
+ * @param[in] pxPublishInfo Pointer to publish info of the incoming publish.
+ * @param[in] usPacketIdentifier Packet identifier of the incoming publish.
  */
-typedef void (* MQTTPublishCallback_t )( MQTTPublishInfo_t * pPublishInfo,
-                                         uint16_t packetIdentifier );
+typedef void (* MQTTPublishCallback_t )( MQTTPublishInfo_t * pxPublishInfo,
+                                         uint16_t usPacketIdentifier );
 
 /**
  * @brief Establish a MQTT connection.
  *
- * @param[in] publishCallback The callback function to receive incoming
+ * @param[in] xPublishCallback The callback function to receive incoming
  * publishes from the MQTT broker.
- * @param[in] pClientCertLabel The client certificate PKCS #11 label to use.
- * @param[in] pPrivateKeyLabel The private key PKCS #11 label for the client certificate.
+ * @param[in] pcClientCertLabel The client certificate PKCS #11 label to use.
+ * @param[in] pcPrivateKeyLabel The private key PKCS #11 label for the client certificate.
  *
  * @return true if an MQTT session is established;
  * false otherwise.
  */
-bool EstablishMqttSession( MQTTPublishCallback_t publishCallback,
-                           char * pClientCertLabel,
-                           char * pPrivateKeyLabel );
+bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
+                           char * pcClientCertLabel,
+                           char * pcPrivateKeyLabel );
 
 /**
  * @brief Disconnect the MQTT connection.
@@ -59,47 +59,47 @@ bool EstablishMqttSession( MQTTPublishCallback_t publishCallback,
  * @return true if the MQTT session was successfully disconnected;
  * false otherwise.
  */
-bool DisconnectMqttSession( void );
+bool xDisconnectMqttSession( void );
 
 /**
  * @brief Subscribe to a MQTT topic filter.
  *
- * @param[in] pTopicFilter The topic filter to subscribe to.
- * @param[in] topicFilterLength Length of the topic buffer.
+ * @param[in] pcTopicFilter The topic filter to subscribe to.
+ * @param[in] usTopicFilterLength Length of the topic buffer.
  *
  * @return true if subscribe operation was successful;
  * false otherwise.
  */
-bool SubscribeToTopic( const char * pTopicFilter,
-                       uint16_t topicFilterLength );
+bool xSubscribeToTopic( const char * pcTopicFilter,
+                       uint16_t usTopicFilterLength );
 
 /**
  * @brief Unsubscribe from a MQTT topic filter.
  *
- * @param[in] pTopicFilter The topic filter to unsubscribe from.
- * @param[in] topicFilterLength Length of the topic buffer.
+ * @param[in] pcTopicFilter The topic filter to unsubscribe from.
+ * @param[in] usTopicFilterLength Length of the topic buffer.
  *
  * @return true if unsubscribe operation was successful;
  * false otherwise.
  */
-bool UnsubscribeFromTopic( const char * pTopicFilter,
-                           uint16_t topicFilterLength );
+bool xUnsubscribeFromTopic( const char * pcTopicFilter,
+                           uint16_t usTopicFilterLength );
 
 /**
  * @brief Publish a message to a MQTT topic.
  *
- * @param[in] pTopic The topic to publish the message on.
- * @param[in] topicLength Length of the topic.
- * @param[in] pMessage The message to publish.
- * @param[in] messageLength Length of the message.
+ * @param[in] pcTopic The topic to publish the message on.
+ * @param[in] usTopicLength Length of the topic.
+ * @param[in] pcMessage The message to publish.
+ * @param[in] xMessageLength Length of the message.
  *
  * @return true if PUBLISH was successfully sent;
  * false otherwise.
  */
-bool PublishToTopic( const char * pTopic,
-                     uint16_t topicLength,
-                     const char * pMessage,
-                     size_t messageLength );
+bool xPublishToTopic( const char * pcTopic,
+                     uint16_t usTopicLength,
+                     const char * pcMessage,
+                     size_t xMessageLength );
 
 /**
  * @brief Invoke the core MQTT library's process loop function.
@@ -107,6 +107,6 @@ bool PublishToTopic( const char * pTopic,
  * @return true if process loop was successful;
  * false otherwise.
  */
-bool ProcessLoop( void );
+bool xProcessLoop( void );
 
 #endif /* ifndef MQTT_OPERATIONS_H_ */

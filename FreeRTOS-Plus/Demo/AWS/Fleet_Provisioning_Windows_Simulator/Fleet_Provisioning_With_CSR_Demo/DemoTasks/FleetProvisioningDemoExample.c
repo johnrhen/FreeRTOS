@@ -215,7 +215,7 @@ static uint32_t ulGlobalEntryTimeMs;
  */
 struct NetworkContext
 {
-    TlsTransportParams_t * pParams;
+    TlsTransportParams_t * pxParams;
 };
 
 /*-----------------------------------------------------------*/
@@ -356,7 +356,7 @@ static bool prvWaitForResponse( void )
     xResponseStatus = ResponseNotReceived;
 
     /* xResponseStatus is updated from the MQTT publish callback. */
-    ( void ) ProcessLoop();
+    ( void ) xProcessLoop();
 
     if( xResponseStatus == ResponseNotReceived )
     {
@@ -376,7 +376,7 @@ static bool prvSubscribeToCsrResponseTopics( void )
 {
     bool xStatus;
 
-    xStatus = SubscribeToTopic( FP_CBOR_CREATE_CERT_ACCEPTED_TOPIC,
+    xStatus = xSubscribeToTopic( FP_CBOR_CREATE_CERT_ACCEPTED_TOPIC,
                                FP_CBOR_CREATE_CERT_ACCEPTED_LENGTH );
 
     if( xStatus == false )
@@ -388,7 +388,7 @@ static bool prvSubscribeToCsrResponseTopics( void )
 
     if( xStatus == true )
     {
-        xStatus = SubscribeToTopic( FP_CBOR_CREATE_CERT_REJECTED_TOPIC,
+        xStatus = xSubscribeToTopic( FP_CBOR_CREATE_CERT_REJECTED_TOPIC,
                                    FP_CBOR_CREATE_CERT_REJECTED_LENGTH );
 
         if( xStatus == false )
@@ -407,7 +407,7 @@ static bool prvUnsubscribeFromCsrResponseTopics( void )
 {
     bool xStatus;
 
-    xStatus = UnsubscribeFromTopic( FP_CBOR_CREATE_CERT_ACCEPTED_TOPIC,
+    xStatus = xUnsubscribeFromTopic( FP_CBOR_CREATE_CERT_ACCEPTED_TOPIC,
                                    FP_CBOR_CREATE_CERT_ACCEPTED_LENGTH );
 
     if( xStatus == false )
@@ -419,7 +419,7 @@ static bool prvUnsubscribeFromCsrResponseTopics( void )
 
     if( xStatus == true )
     {
-        xStatus = UnsubscribeFromTopic( FP_CBOR_CREATE_CERT_REJECTED_TOPIC,
+        xStatus = xUnsubscribeFromTopic( FP_CBOR_CREATE_CERT_REJECTED_TOPIC,
                                        FP_CBOR_CREATE_CERT_REJECTED_LENGTH );
 
         if( xStatus == false )
@@ -438,7 +438,7 @@ static bool prvSubscribeToRegisterThingResponseTopics( void )
 {
     bool xStatus;
 
-    xStatus = SubscribeToTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+    xStatus = xSubscribeToTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
     if( xStatus == false )
@@ -450,7 +450,7 @@ static bool prvSubscribeToRegisterThingResponseTopics( void )
 
     if( xStatus == true )
     {
-        xStatus = SubscribeToTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+        xStatus = xSubscribeToTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                    FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
         if( xStatus == false )
@@ -469,7 +469,7 @@ static bool prvUnsubscribeFromRegisterThingResponseTopics( void )
 {
     bool xStatus;
 
-    xStatus = UnsubscribeFromTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+    xStatus = xUnsubscribeFromTopic( FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                    FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
     if( xStatus == false )
@@ -481,7 +481,7 @@ static bool prvUnsubscribeFromRegisterThingResponseTopics( void )
 
     if( xStatus == true )
     {
-        xStatus = UnsubscribeFromTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+        xStatus = xUnsubscribeFromTopic( FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                                        FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
 
         if( xStatus == false )
@@ -569,7 +569,7 @@ int prvFleetProvisioningTask(void* pvParameters)
     ( void ) pvParameters;
 
     /* Set the pParams member of the network context with desired transport. */
-    xNetworkContext.pParams = &xTlsTransportParams;
+    xNetworkContext.pxParams = &xTlsTransportParams;
 
     /* Set the entry time of the demo application. This entry time will be used
      * to calculate relative time elapsed in the execution of the demo application,
@@ -618,7 +618,7 @@ int prvFleetProvisioningTask(void* pvParameters)
              * connection fails, retries after a timeout. Timeout value will
              * exponentially increase until maximum attempts are reached. */
             LogInfo(("Establishing MQTT session with claim certificate..."));
-            xStatus = EstablishMqttSession(prvProvisioningPublishCallback,
+            xStatus = xEstablishMqttSession(prvProvisioningPublishCallback,
                 pkcs11configLABEL_CLAIM_CERTIFICATE,
                 pkcs11configLABEL_CLAIM_PRIVATE_KEY);
 
@@ -660,7 +660,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xStatus == true )
         {
             /* Publish the CSR to the CreateCertificatefromCsr API. */
-            PublishToTopic( FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
+            xPublishToTopic( FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
                             FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
                             ( char * ) pucPayloadBuffer,
                             xPayloadLength );
@@ -739,7 +739,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xStatus == true )
         {
             /* Publish the RegisterThing request. */
-            PublishToTopic( FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+            xPublishToTopic( FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
                             FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
                             ( char * ) pucPayloadBuffer,
                             xPayloadLength );
@@ -787,7 +787,7 @@ int prvFleetProvisioningTask(void* pvParameters)
          * credentials. */
         if( xConnectionEstablished == true )
         {
-            DisconnectMqttSession();
+            xDisconnectMqttSession();
             xConnectionEstablished = false;
         }
 
@@ -796,7 +796,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xStatus == true )
         {
             LogInfo( ( "Establishing MQTT session with provisioned certificate..." ) );
-            xStatus = EstablishMqttSession( prvProvisioningPublishCallback,
+            xStatus = xEstablishMqttSession( prvProvisioningPublishCallback,
                                            pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
                                            pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS );
 
@@ -819,7 +819,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xConnectionEstablished == true )
         {
             /* Close the connection. */
-            DisconnectMqttSession();
+            xDisconnectMqttSession();
             xConnectionEstablished = false;
         }
 
