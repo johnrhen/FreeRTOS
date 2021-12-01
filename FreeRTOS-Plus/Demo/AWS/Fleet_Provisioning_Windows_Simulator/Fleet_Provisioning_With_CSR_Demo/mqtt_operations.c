@@ -23,19 +23,19 @@
  * http://aws.amazon.com/freertos
  */
 
- /**
-  * @file mqtt_operations.c
-  *
-  * @brief This file provides wrapper functions for MQTT operations on a mutually
-  * authenticated TLS connection.
-  *
-  * A mutually authenticated TLS connection is used to connect to the AWS IoT
-  * MQTT message broker in this example. Run the setup script 
-  * (fleet_provisioning_demo_setup.py) and define democonfigROOT_CA_PEM
-  * in demo_config.h to achieve mutual authentication.
-  */
+/**
+ * @file mqtt_operations.c
+ *
+ * @brief This file provides wrapper functions for MQTT operations on a mutually
+ * authenticated TLS connection.
+ *
+ * A mutually authenticated TLS connection is used to connect to the AWS IoT
+ * MQTT message broker in this example. Run the setup script
+ * (fleet_provisioning_demo_setup.py) and define democonfigROOT_CA_PEM
+ * in demo_config.h to achieve mutual authentication.
+ */
 
-  /* Standard includes. */
+/* Standard includes. */
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,9 +67,9 @@
     #error "Please define a unique democonfigCLIENT_IDENTIFIER."
 #endif
 
- /**
-  * Provide default values for undefined configuration settings.
-  */
+/**
+ * Provide default values for undefined configuration settings.
+ */
 #ifndef democonfigMQTT_BROKER_PORT
     #define democonfigMQTT_BROKER_PORT    ( 8883 )
 #endif
@@ -81,7 +81,7 @@
 /**
  * @brief Length of the AWS IoT endpoint.
  */
-#define democonfigMQTT_BROKER_ENDPOINT_LENGTH                  ( ( uint16_t ) ( sizeof( democonfigMQTT_BROKER_ENDPOINT ) - 1 ) )
+#define democonfigMQTT_BROKER_ENDPOINT_LENGTH          ( ( uint16_t ) ( sizeof( democonfigMQTT_BROKER_ENDPOINT ) - 1 ) )
 
 /**
  * @brief Length of the client identifier.
@@ -163,12 +163,12 @@
 /**
  * @brief Milliseconds per second.
  */
-#define mqttopMILLISECONDS_PER_SECOND                      ( 1000U )
+#define mqttopMILLISECONDS_PER_SECOND                  ( 1000U )
 
 /**
  * @brief Milliseconds per FreeRTOS tick.
  */
-#define mqttopMILLISECONDS_PER_TICK                        ( mqttopMILLISECONDS_PER_SECOND / configTICK_RATE_HZ )
+#define mqttopMILLISECONDS_PER_TICK                    ( mqttopMILLISECONDS_PER_SECOND / configTICK_RATE_HZ )
 
 /**
  * @brief The MQTT metrics string expected by AWS IoT MQTT Broker.
@@ -291,8 +291,8 @@ static uint32_t prvGenerateRandomNumber( void );
  * @return false on failure; true on successful connection.
  */
 static bool prvConnectToBrokerWithBackoffRetries( NetworkContext_t * pxNetworkContext,
-                                               char * pcClientCertLabel,
-                                               char * pcPrivateKeyLabel );
+                                                  char * pcClientCertLabel,
+                                                  char * pcPrivateKeyLabel );
 
 /**
  * @brief Get the free index in the #pxOutgoingPublishPackets array at which an
@@ -334,8 +334,8 @@ static void prvCleanupOutgoingPublishWithPacketID( uint16_t usPacketId );
  * @param[in] pxDeserializedInfo Deserialized information from the incoming packet.
  */
 static void prvMqttCallback( MQTTContext_t * pxMqttContext,
-                          MQTTPacketInfo_t * pxPacketInfo,
-                          MQTTDeserializedInfo_t * pxDeserializedInfo );
+                             MQTTPacketInfo_t * pxPacketInfo,
+                             MQTTDeserializedInfo_t * pxDeserializedInfo );
 
 /**
  * @brief Resend the publishes if a session is re-established with the broker.
@@ -355,7 +355,7 @@ static bool prvHandlePublishResend( MQTTContext_t * pxMqttContext );
  *
  * @return Time in milliseconds.
  */
-static uint32_t prvGetTimeMs(void);
+static uint32_t prvGetTimeMs( void );
 
 /*-----------------------------------------------------------*/
 
@@ -367,8 +367,8 @@ static uint32_t prvGenerateRandomNumber()
 /*-----------------------------------------------------------*/
 
 static bool prvConnectToBrokerWithBackoffRetries( NetworkContext_t * pxNetworkContext,
-                                               char * pcClientCertLabel,
-                                               char * pcPrivateKeyLabel )
+                                                  char * pcClientCertLabel,
+                                                  char * pcPrivateKeyLabel )
 {
     bool xReturnStatus = false;
     BackoffAlgorithmStatus_t xBackoffAlgStatus = BackoffAlgorithmSuccess;
@@ -383,7 +383,7 @@ static bool prvConnectToBrokerWithBackoffRetries( NetworkContext_t * pxNetworkCo
 
     /* Initialize credentials for establishing TLS session. */
     xTlsCredentials.pRootCa = democonfigROOT_CA_PEM;
-    xTlsCredentials.rootCaSize = sizeof(democonfigROOT_CA_PEM);
+    xTlsCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
     xTlsCredentials.pClientCertLabel = pcClientCertLabel;
     xTlsCredentials.pPrivateKeyLabel = pcPrivateKeyLabel;
 
@@ -422,10 +422,10 @@ static bool prvConnectToBrokerWithBackoffRetries( NetworkContext_t * pxNetworkCo
                     democonfigMQTT_BROKER_PORT ) );
 
         xTlsStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                            democonfigMQTT_BROKER_ENDPOINT,
-                                            democonfigMQTT_BROKER_PORT,
-                                            &xTlsCredentials,
-                                            mqttopTRANSPORT_SEND_RECV_TIMEOUT_MS, mqttopTRANSPORT_SEND_RECV_TIMEOUT_MS);
+                                           democonfigMQTT_BROKER_ENDPOINT,
+                                           democonfigMQTT_BROKER_PORT,
+                                           &xTlsCredentials,
+                                           mqttopTRANSPORT_SEND_RECV_TIMEOUT_MS, mqttopTRANSPORT_SEND_RECV_TIMEOUT_MS );
 
         if( xTlsStatus == TLS_TRANSPORT_SUCCESS )
         {
@@ -529,8 +529,8 @@ static void prvCleanupOutgoingPublishWithPacketID( uint16_t usPacketId )
 /*-----------------------------------------------------------*/
 
 static void prvMqttCallback( MQTTContext_t * pxMqttContext,
-                          MQTTPacketInfo_t * pxPacketInfo,
-                          MQTTDeserializedInfo_t * pxDeserializedInfo )
+                             MQTTPacketInfo_t * pxPacketInfo,
+                             MQTTDeserializedInfo_t * pxDeserializedInfo )
 {
     uint16_t usPacketIdentifier;
 
@@ -624,8 +624,8 @@ static bool prvHandlePublishResend( MQTTContext_t * pxMqttContext )
             LogDebug( ( "Sending duplicate PUBLISH with packet id %u.",
                         pxOutgoingPublishPackets[ ucIndex ].usPacketId ) );
             xMqttStatus = MQTT_Publish( pxMqttContext,
-                                       &pxOutgoingPublishPackets[ ucIndex ].xPubInfo,
-                                       pxOutgoingPublishPackets[ ucIndex ].usPacketId );
+                                        &pxOutgoingPublishPackets[ ucIndex ].xPubInfo,
+                                        pxOutgoingPublishPackets[ ucIndex ].usPacketId );
 
             if( xMqttStatus != MQTTSuccess )
             {
@@ -654,8 +654,8 @@ static bool prvHandlePublishResend( MQTTContext_t * pxMqttContext )
 /*-----------------------------------------------------------*/
 
 bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
-                           char * pcClientCertLabel,
-                           char * pcPrivateKeyLabel )
+                            char * pcClientCertLabel,
+                            char * pcPrivateKeyLabel )
 {
     bool xReturnStatus = false;
     MQTTStatus_t xMqttStatus;
@@ -675,8 +675,8 @@ bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
     ( void ) memset( pxNetworkContext, 0U, sizeof( NetworkContext_t ) );
 
     xReturnStatus = prvConnectToBrokerWithBackoffRetries( pxNetworkContext,
-                                                      pcClientCertLabel,
-                                                      pcPrivateKeyLabel );
+                                                          pcClientCertLabel,
+                                                          pcPrivateKeyLabel );
 
     if( xReturnStatus != true )
     {
@@ -704,10 +704,10 @@ bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
 
         /* Initialize the MQTT library. */
         xMqttStatus = MQTT_Init( pxMqttContext,
-                                &xTransport,
-                                prvGetTimeMs,
-                                prvMqttCallback,
-                                &xNetworkBuffer );
+                                 &xTransport,
+                                 prvGetTimeMs,
+                                 prvMqttCallback,
+                                 &xNetworkBuffer );
 
         if( xMqttStatus != MQTTSuccess )
         {
@@ -747,10 +747,10 @@ bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
 
             /* Send an MQTT CONNECT packet to the broker. */
             xMqttStatus = MQTT_Connect( pxMqttContext,
-                                       &xConnectInfo,
-                                       NULL,
-                                       mqttopCONNACK_RECV_TIMEOUT_MS,
-                                       &xSessionPresent );
+                                        &xConnectInfo,
+                                        NULL,
+                                        mqttopCONNACK_RECV_TIMEOUT_MS,
+                                        &xSessionPresent );
 
             if( xMqttStatus != MQTTSuccess )
             {
@@ -837,7 +837,7 @@ bool xDisconnectMqttSession( void )
 /*-----------------------------------------------------------*/
 
 bool xSubscribeToTopic( const char * pcTopicFilter,
-                       uint16_t usTopicFilterLength )
+                        uint16_t usTopicFilterLength )
 {
     bool xReturnStatus = false;
     MQTTStatus_t xMqttStatus;
@@ -861,9 +861,9 @@ bool xSubscribeToTopic( const char * pcTopicFilter,
 
     /* Send SUBSCRIBE packet. */
     xMqttStatus = MQTT_Subscribe( pxMqttContext,
-                                 pxSubscriptionList,
-                                 sizeof( pxSubscriptionList ) / sizeof( MQTTSubscribeInfo_t ),
-                                 usGlobalSubscribePacketIdentifier );
+                                  pxSubscriptionList,
+                                  sizeof( pxSubscriptionList ) / sizeof( MQTTSubscribeInfo_t ),
+                                  usGlobalSubscribePacketIdentifier );
 
     if( xMqttStatus != MQTTSuccess )
     {
@@ -901,7 +901,7 @@ bool xSubscribeToTopic( const char * pcTopicFilter,
 /*-----------------------------------------------------------*/
 
 bool xUnsubscribeFromTopic( const char * pcTopicFilter,
-                           uint16_t usTopicFilterLength )
+                            uint16_t usTopicFilterLength )
 {
     bool xReturnStatus = false;
     MQTTStatus_t xMqttStatus;
@@ -925,9 +925,9 @@ bool xUnsubscribeFromTopic( const char * pcTopicFilter,
 
     /* Send UNSUBSCRIBE packet. */
     xMqttStatus = MQTT_Unsubscribe( pxMqttContext,
-                                   pxSubscriptionList,
-                                   sizeof( pxSubscriptionList ) / sizeof( MQTTSubscribeInfo_t ),
-                                   usGlobalUnsubscribePacketIdentifier );
+                                    pxSubscriptionList,
+                                    sizeof( pxSubscriptionList ) / sizeof( MQTTSubscribeInfo_t ),
+                                    usGlobalUnsubscribePacketIdentifier );
 
     if( xMqttStatus != MQTTSuccess )
     {
@@ -961,9 +961,9 @@ bool xUnsubscribeFromTopic( const char * pcTopicFilter,
 /*-----------------------------------------------------------*/
 
 bool xPublishToTopic( const char * pcTopicFilter,
-                     uint16_t usTopicFilterLength,
-                     const char * pcPayload,
-                     size_t xPayloadLength )
+                      uint16_t usTopicFilterLength,
+                      const char * pcPayload,
+                      size_t xPayloadLength )
 {
     bool xReturnStatus = false;
     MQTTStatus_t xMqttStatus = MQTTSuccess;
@@ -1002,8 +1002,8 @@ bool xPublishToTopic( const char * pcTopicFilter,
 
         /* Send PUBLISH packet. */
         xMqttStatus = MQTT_Publish( pxMqttContext,
-                                   &pxOutgoingPublishPackets[ ucPublishIndex ].xPubInfo,
-                                   pxOutgoingPublishPackets[ ucPublishIndex ].usPacketId );
+                                    &pxOutgoingPublishPackets[ ucPublishIndex ].xPubInfo,
+                                    pxOutgoingPublishPackets[ ucPublishIndex ].usPacketId );
 
         if( xMqttStatus != MQTTSuccess )
         {
@@ -1047,7 +1047,7 @@ bool xProcessLoop( void )
 }
 /*-----------------------------------------------------------*/
 
-static uint32_t prvGetTimeMs(void)
+static uint32_t prvGetTimeMs( void )
 {
     TickType_t xTickCount = 0;
     uint32_t ulTimeMs = 0UL;
@@ -1056,11 +1056,11 @@ static uint32_t prvGetTimeMs(void)
     xTickCount = xTaskGetTickCount();
 
     /* Convert the ticks to milliseconds. */
-    ulTimeMs = (uint32_t)xTickCount * mqttopMILLISECONDS_PER_TICK;
+    ulTimeMs = ( uint32_t ) xTickCount * mqttopMILLISECONDS_PER_TICK;
 
     /* Reduce ulGlobalEntryTimeMs from obtained time so as to always return the
      * elapsed time in the application. */
-    ulTimeMs = (uint32_t)(ulTimeMs - ulGlobalEntryTimeMs);
+    ulTimeMs = ( uint32_t ) ( ulTimeMs - ulGlobalEntryTimeMs );
 
     return ulTimeMs;
 }

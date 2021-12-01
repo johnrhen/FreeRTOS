@@ -37,10 +37,10 @@
 /*-----------------------------------------------------------*/
 
 bool xGenerateCsrRequest( uint8_t * pucBuffer,
-                         size_t xBufferLength,
-                         const char * pcCsr,
-                         size_t xCsrLength,
-                         size_t * pxOutLengthWritten )
+                          size_t xBufferLength,
+                          const char * pcCsr,
+                          size_t xCsrLength,
+                          size_t * pxOutLengthWritten )
 {
     CborEncoder xEncoder, xMapEncoder;
     CborError xCborRet;
@@ -91,12 +91,12 @@ bool xGenerateCsrRequest( uint8_t * pucBuffer,
 /*-----------------------------------------------------------*/
 
 bool xGenerateRegisterThingRequest( uint8_t * pucBuffer,
-                                   size_t xBufferLength,
-                                   const char * pcCertificateOwnershipToken,
-                                   size_t xCertificateOwnershipTokenLength,
-                                   const char * pcSerial,
-                                   size_t xSerialLength,
-                                   size_t * pxOutLengthWritten )
+                                    size_t xBufferLength,
+                                    const char * pcCertificateOwnershipToken,
+                                    size_t xCertificateOwnershipTokenLength,
+                                    const char * pcSerial,
+                                    size_t xSerialLength,
+                                    size_t * pxOutLengthWritten )
 {
     CborEncoder xEncoder, xMapEncoder, xParametersEncoder;
     CborError xCborRet;
@@ -173,13 +173,13 @@ bool xGenerateRegisterThingRequest( uint8_t * pucBuffer,
 /*-----------------------------------------------------------*/
 
 bool xParseCsrResponse( const uint8_t * pucResponse,
-                       size_t xLength,
-                       char * pcCertificateBuffer,
-                       size_t * pxCertificateBufferLength,
-                       char * pcCertificateIdBuffer,
-                       size_t * pxCertificateIdBufferLength,
-                       char * pcOwnershipTokenBuffer,
-                       size_t * pxOwnershipTokenBufferLength )
+                        size_t xLength,
+                        char * pcCertificateBuffer,
+                        size_t * pxCertificateBufferLength,
+                        char * pcCertificateIdBuffer,
+                        size_t * pxCertificateIdBufferLength,
+                        char * pcOwnershipTokenBuffer,
+                        size_t * pxOwnershipTokenBufferLength )
 {
     CborError xCborRet;
     CborParser xParser;
@@ -312,9 +312,9 @@ bool xParseCsrResponse( const uint8_t * pucResponse,
 /*-----------------------------------------------------------*/
 
 bool xParseRegisterThingResponse( const uint8_t * pucResponse,
-                                 size_t xLength,
-                                 char * pcThingNameBuffer,
-                                 size_t * pxThingNameBufferLength )
+                                  size_t xLength,
+                                  char * pcThingNameBuffer,
+                                  size_t * pxThingNameBufferLength )
 {
     CborError cborRet;
     CborParser parser;

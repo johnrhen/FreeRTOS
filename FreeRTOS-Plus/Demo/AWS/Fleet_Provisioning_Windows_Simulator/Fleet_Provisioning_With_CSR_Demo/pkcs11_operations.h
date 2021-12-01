@@ -51,11 +51,11 @@
  * @return True on success.
  */
 bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
-                        const char * pcPrivKeyLabel,
-                        const char * pcPubKeyLabel,
-                        char * pcCsrBuffer,
-                        size_t xCsrBufferLength,
-                        size_t * pcOutCsrLength );
+                         const char * pcPrivKeyLabel,
+                         const char * pcPubKeyLabel,
+                         char * pcCsrBuffer,
+                         size_t xCsrBufferLength,
+                         size_t * pcOutCsrLength );
 
 /**
  * @brief Save the device client certificate into the PKCS #11 module.
@@ -68,9 +68,9 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
  * @return True on success.
  */
 bool xLoadCertificate( CK_SESSION_HANDLE xP11Session,
-                      const char * pcCertificate,
-                      const char * pcLabel,
-                      size_t xCertificateLength );
+                       const char * pcCertificate,
+                       const char * pcLabel,
+                       size_t xCertificateLength );
 
 /**
  * @brief Close the PKCS #11 session.

@@ -45,10 +45,10 @@
  * @param[out] pxOutLengthWritten The length of the publish request payload.
  */
 bool xGenerateCsrRequest( uint8_t * pucBuffer,
-                         size_t xBufferLength,
-                         const char * pcCsr,
-                         size_t xCsrLength,
-                         size_t * pxOutLengthWritten );
+                          size_t xBufferLength,
+                          const char * pcCsr,
+                          size_t xCsrLength,
+                          size_t * pxOutLengthWritten );
 
 /**
  * @brief Creates the request payload to be published to the RegisterThing API
@@ -63,12 +63,12 @@ bool xGenerateCsrRequest( uint8_t * pucBuffer,
  * @param[out] pxOutLengthWritten The length of the publish request payload.
  */
 bool xGenerateRegisterThingRequest( uint8_t * pucBuffer,
-                                   size_t xBufferLength,
-                                   const char * pcCertificateOwnershipToken,
-                                   size_t xCertificateOwnershipTokenLength,
-                                   const char * pcSerial,
-                                   size_t xSerialLength,
-                                   size_t * pxOutLengthWritten );
+                                    size_t xBufferLength,
+                                    const char * pcCertificateOwnershipToken,
+                                    size_t xCertificateOwnershipTokenLength,
+                                    const char * pcSerial,
+                                    size_t xSerialLength,
+                                    size_t * pxOutLengthWritten );
 
 /**
  * @brief Extracts the certificate, certificate ID, and certificate ownership
@@ -91,13 +91,13 @@ bool xGenerateRegisterThingRequest( uint8_t * pucBuffer,
  * #pcOwnershipTokenBuffer. The length written is output here.
  */
 bool xParseCsrResponse( const uint8_t * pucResponse,
-                       size_t xLength,
-                       char * pcCertificateBuffer,
-                       size_t * pxCertificateBufferLength,
-                       char * pcCertificateIdBuffer,
-                       size_t * pxCertificateIdBufferLength,
-                       char * pcOwnershipTokenBuffer,
-                       size_t * pxOwnershipTokenBufferLength );
+                        size_t xLength,
+                        char * pcCertificateBuffer,
+                        size_t * pxCertificateBufferLength,
+                        char * pcCertificateIdBuffer,
+                        size_t * pxCertificateIdBufferLength,
+                        char * pcOwnershipTokenBuffer,
+                        size_t * pxOwnershipTokenBufferLength );
 
 /**
  * @brief Extracts the Thing name from a RegisterThing accepted response.
@@ -109,6 +109,6 @@ bool xParseCsrResponse( const uint8_t * pucResponse,
  * written length is output here.
  */
 bool xParseRegisterThingResponse( const uint8_t * pucResponse,
-                                 size_t xLength,
-                                 char * pcThingNameBuffer,
-                                 size_t * pxThingNameBufferLength );
+                                  size_t xLength,
+                                  char * pcThingNameBuffer,
+                                  size_t * pxThingNameBufferLength );

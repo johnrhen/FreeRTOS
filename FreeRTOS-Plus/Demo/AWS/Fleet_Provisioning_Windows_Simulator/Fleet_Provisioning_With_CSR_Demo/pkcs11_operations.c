@@ -153,9 +153,9 @@ static SigningCallbackContext_t xSigningContext = { 0 };
  * @param[out] pxOutWrittenLength Length of contents written to #pcBuffer.
  */
 static bool prvReadFile( const char * pcPath,
-                      char * pcBuffer,
-                      size_t xBufferLength,
-                      size_t * pxOutWrittenLength );
+                         char * pcBuffer,
+                         size_t xBufferLength,
+                         size_t * pxOutWrittenLength );
 
 /**
  * @brief Delete the specified crypto object from storage.
@@ -166,9 +166,9 @@ static bool prvReadFile( const char * pcPath,
  * @param[in] xCount The length of #pxPkcsLabelsPtr and #pxClass.
  */
 static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
-                                     CK_BYTE_PTR * pxPkcsLabelsPtr,
-                                     CK_OBJECT_CLASS * pxClass,
-                                     CK_ULONG xCount );
+                                        CK_BYTE_PTR * pxPkcsLabelsPtr,
+                                        CK_OBJECT_CLASS * pxClass,
+                                        CK_ULONG xCount );
 
 
 /**
@@ -179,8 +179,8 @@ static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
  * @param[in] pxMbedPkContext The private key to store.
  */
 static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
-                                    const char * pcLabel,
-                                    mbedtls_pk_context * pxMbedPkContext );
+                                       const char * pcLabel,
+                                       mbedtls_pk_context * pxMbedPkContext );
 
 
 
@@ -192,8 +192,8 @@ static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
  * @param[in] pxMbedPkContext The private key to store.
  */
 static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
-                                     const char * pcLabel,
-                                     mbedtls_pk_context * pxMbedPkContext );
+                                        const char * pcLabel,
+                                        mbedtls_pk_context * pxMbedPkContext );
 
 
 /**
@@ -205,9 +205,9 @@ static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
  * @param[in] pcLabel The label to store the key.
  */
 static CK_RV prvProvisionPrivateKey( CK_SESSION_HANDLE xSession,
-                                  const char * pcPrivateKey,
-                                  size_t xPrivateKeyLength,
-                                  const char * pcLabel );
+                                     const char * pcPrivateKey,
+                                     size_t xPrivateKeyLength,
+                                     const char * pcLabel );
 
 /**
  * @brief Import the specified X.509 client certificate into storage.
@@ -218,9 +218,9 @@ static CK_RV prvProvisionPrivateKey( CK_SESSION_HANDLE xSession,
  * @param[in] pcLabel The label to store the certificate.
  */
 static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
-                                   const char * pcCertificate,
-                                   size_t xCertificateLength,
-                                   const char * pcLabel );
+                                      const char * pcCertificate,
+                                      size_t xCertificateLength,
+                                      const char * pcLabel );
 
 /**
  * @brief Read the specified ECDSA public key into the MbedTLS ECDSA context.
@@ -230,8 +230,8 @@ static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
  * @param[in] xPublicKey The public key to read.
  */
 static int prvExtractEcPublicKey( CK_SESSION_HANDLE xP11Session,
-                               mbedtls_ecdsa_context * pxEcdsaContext,
-                               CK_OBJECT_HANDLE xPublicKey );
+                                  mbedtls_ecdsa_context * pxEcdsaContext,
+                                  CK_OBJECT_HANDLE xPublicKey );
 
 /**
  * @brief MbedTLS callback for signing using the provisioned private key. Used for
@@ -247,13 +247,13 @@ static int prvExtractEcPublicKey( CK_SESSION_HANDLE xP11Session,
  * @param[in] pxRngContext Unused.
  */
 static int32_t prvPrivateKeySigningCallback( void * pxContext,
-                                          mbedtls_md_type_t xMdAlg,
-                                          const unsigned char * pucHash,
-                                          size_t xHashLen,
-                                          unsigned char * pucSig,
-                                          size_t * pxSigLen,
-                                          int ( *pxRng )( void *, unsigned char *, size_t ),
-                                          void * pxRngContext );
+                                             mbedtls_md_type_t xMdAlg,
+                                             const unsigned char * pucHash,
+                                             size_t xHashLen,
+                                             unsigned char * pucSig,
+                                             size_t * pxSigLen,
+                                             int ( * pxRng )( void *, unsigned char *, size_t ),
+                                             void * pxRngContext );
 
 /**
  * @brief MbedTLS random generation callback to generate random values with
@@ -264,8 +264,8 @@ static int32_t prvPrivateKeySigningCallback( void * pxContext,
  * @param[in] xRandomLength Length of random data to write.
  */
 static int prvRandomCallback( void * pxCtx,
-                           unsigned char * pucRandom,
-                           size_t xRandomLength );
+                              unsigned char * pucRandom,
+                              size_t xRandomLength );
 
 /**
  * @brief Generate a new ECDSA key pair using PKCS #11.
@@ -277,17 +277,17 @@ static int prvRandomCallback( void * pxCtx,
  * @param[out] xPublicKeyHandlePtr The handle of the public key.
  */
 static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
-                                const char * pcPrivateKeyLabel,
-                                const char * pcPublicKeyLabel,
-                                CK_OBJECT_HANDLE_PTR xPrivateKeyHandlePtr,
-                                CK_OBJECT_HANDLE_PTR xPublicKeyHandlePtr );
+                                   const char * pcPrivateKeyLabel,
+                                   const char * pcPublicKeyLabel,
+                                   CK_OBJECT_HANDLE_PTR xPrivateKeyHandlePtr,
+                                   CK_OBJECT_HANDLE_PTR xPublicKeyHandlePtr );
 
 /*-----------------------------------------------------------*/
 
 static bool prvReadFile( const char * pcPath,
-                      char * pcBuffer,
-                      size_t xBufferLength,
-                      size_t * pxOutWrittenLength )
+                         char * pcBuffer,
+                         size_t xBufferLength,
+                         size_t * pxOutWrittenLength )
 {
     FILE * pxFile;
     size_t xLength = 0;
@@ -382,9 +382,9 @@ static bool prvReadFile( const char * pcPath,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
-                                     CK_BYTE_PTR * pxPkcsLabelsPtr,
-                                     CK_OBJECT_CLASS * pxClass,
-                                     CK_ULONG xCount )
+                                        CK_BYTE_PTR * pxPkcsLabelsPtr,
+                                        CK_OBJECT_CLASS * pxClass,
+                                        CK_ULONG xCount )
 {
     CK_RV xResult;
     CK_FUNCTION_LIST_PTR xFunctionList;
@@ -405,8 +405,8 @@ static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
             pxLabelPtr = pxPkcsLabelsPtr[ xIndex ];
 
             xResult = xFindObjectWithLabelAndClass( xSession, ( char * ) pxLabelPtr,
-                                                   strlen( ( char * ) pxLabelPtr ),
-                                                   pxClass[ xIndex ], &xObjectHandle );
+                                                    strlen( ( char * ) pxLabelPtr ),
+                                                    pxClass[ xIndex ], &xObjectHandle );
 
             while( ( xResult == CKR_OK ) && ( xObjectHandle != CK_INVALID_HANDLE ) )
             {
@@ -419,8 +419,8 @@ static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
                 if( xResult == CKR_OK )
                 {
                     xResult = xFindObjectWithLabelAndClass( xSession, ( char * ) pxLabelPtr,
-                                                           strlen( ( char * ) pxLabelPtr ),
-                                                           pxClass[ xIndex ], &xObjectHandle );
+                                                            strlen( ( char * ) pxLabelPtr ),
+                                                            pxClass[ xIndex ], &xObjectHandle );
                 }
                 else
                 {
@@ -436,8 +436,8 @@ static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
-                                    const char * pcLabel,
-                                    mbedtls_pk_context * pxMbedPkContext )
+                                       const char * pcLabel,
+                                       mbedtls_pk_context * pxMbedPkContext )
 {
     CK_RV xResult = CKR_OK;
     CK_FUNCTION_LIST_PTR xFunctionList = NULL;
@@ -493,13 +493,13 @@ static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
     {
         CK_ATTRIBUTE privateKeyTemplate[] =
         {
-            { CKA_CLASS,     NULL /* &privateKeyClass*/, sizeof( CK_OBJECT_CLASS )    },
-            { CKA_KEY_TYPE,  NULL /* &privateKeyType*/,  sizeof( CK_KEY_TYPE )        },
-            { CKA_LABEL,     ( void * ) pcLabel,           ( CK_ULONG ) strlen( pcLabel ) },
-            { CKA_TOKEN,     NULL /* &trueObject*/,      sizeof( CK_BBOOL )           },
-            { CKA_SIGN,      NULL /* &trueObject*/,      sizeof( CK_BBOOL )           },
-            { CKA_EC_PARAMS, NULL /* ecParamsPtr*/,      EC_PARAMS_LENGTH             },
-            { CKA_VALUE,     NULL /* DPtr*/,             EC_D_LENGTH                  }
+            { CKA_CLASS,     NULL /* &privateKeyClass*/, sizeof( CK_OBJECT_CLASS )      },
+            { CKA_KEY_TYPE,  NULL /* &privateKeyType*/,  sizeof( CK_KEY_TYPE )          },
+            { CKA_LABEL,     ( void * ) pcLabel,         ( CK_ULONG ) strlen( pcLabel ) },
+            { CKA_TOKEN,     NULL /* &trueObject*/,      sizeof( CK_BBOOL )             },
+            { CKA_SIGN,      NULL /* &trueObject*/,      sizeof( CK_BBOOL )             },
+            { CKA_EC_PARAMS, NULL /* ecParamsPtr*/,      EC_PARAMS_LENGTH               },
+            { CKA_VALUE,     NULL /* DPtr*/,             EC_D_LENGTH                    }
         };
 
         /* Aggregate initializers must not use the address of an automatic variable. */
@@ -511,9 +511,9 @@ static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
         privateKeyTemplate[ 6 ].pValue = pxDPtr;
 
         xResult = xFunctionList->C_CreateObject( xSession,
-                                               ( CK_ATTRIBUTE_PTR ) &privateKeyTemplate,
-                                               sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                               &xObjectHandle );
+                                                 ( CK_ATTRIBUTE_PTR ) &privateKeyTemplate,
+                                                 sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                                 &xObjectHandle );
     }
 
     if( pxDPtr != NULL )
@@ -527,8 +527,8 @@ static CK_RV prvProvisionPrivateECKey( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
-                                     const char * pcLabel,
-                                     mbedtls_pk_context * pxMbedPkContext )
+                                        const char * pcLabel,
+                                        mbedtls_pk_context * pxMbedPkContext )
 {
     CK_RV xResult = CKR_OK;
     CK_FUNCTION_LIST_PTR xFunctionList = NULL;
@@ -561,11 +561,11 @@ static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
         memset( pxRsaParams, 0, sizeof( RsaParams_t ) );
 
         xMbedResult = mbedtls_rsa_export_raw( pxRsaContext,
-                                             pxRsaParams->modulus, MODULUS_LENGTH + 1,
-                                             pxRsaParams->prime1, PRIME_1_LENGTH + 1,
-                                             pxRsaParams->prime2, PRIME_2_LENGTH + 1,
-                                             pxRsaParams->d, D_LENGTH + 1,
-                                             pxRsaParams->e, E_LENGTH + 1 );
+                                              pxRsaParams->modulus, MODULUS_LENGTH + 1,
+                                              pxRsaParams->prime1, PRIME_1_LENGTH + 1,
+                                              pxRsaParams->prime2, PRIME_2_LENGTH + 1,
+                                              pxRsaParams->d, D_LENGTH + 1,
+                                              pxRsaParams->e, E_LENGTH + 1 );
 
         if( xMbedResult != 0 )
         {
@@ -593,19 +593,19 @@ static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
 
         CK_ATTRIBUTE privateKeyTemplate[] =
         {
-            { CKA_CLASS,            NULL /* &privateKeyClass */, sizeof( CK_OBJECT_CLASS )    },
-            { CKA_KEY_TYPE,         NULL /* &privateKeyType */,  sizeof( CK_KEY_TYPE )        },
-            { CKA_LABEL,            ( void * ) pcLabel,            ( CK_ULONG ) strlen( pcLabel ) },
-            { CKA_TOKEN,            NULL /* &trueObject */,      sizeof( CK_BBOOL )           },
-            { CKA_SIGN,             NULL /* &trueObject */,      sizeof( CK_BBOOL )           },
-            { CKA_MODULUS,          pxRsaParams->modulus + 1,      MODULUS_LENGTH               },
-            { CKA_PRIVATE_EXPONENT, pxRsaParams->d + 1,            D_LENGTH                     },
-            { CKA_PUBLIC_EXPONENT,  pxRsaParams->e + 1,            E_LENGTH                     },
-            { CKA_PRIME_1,          pxRsaParams->prime1 + 1,       PRIME_1_LENGTH               },
-            { CKA_PRIME_2,          pxRsaParams->prime2 + 1,       PRIME_2_LENGTH               },
-            { CKA_EXPONENT_1,       pxRsaParams->exponent1 + 1,    EXPONENT_1_LENGTH            },
-            { CKA_EXPONENT_2,       pxRsaParams->exponent2 + 1,    EXPONENT_2_LENGTH            },
-            { CKA_COEFFICIENT,      pxRsaParams->coefficient + 1,  COEFFICIENT_LENGTH           }
+            { CKA_CLASS,            NULL /* &privateKeyClass */,  sizeof( CK_OBJECT_CLASS )      },
+            { CKA_KEY_TYPE,         NULL /* &privateKeyType */,   sizeof( CK_KEY_TYPE )          },
+            { CKA_LABEL,            ( void * ) pcLabel,           ( CK_ULONG ) strlen( pcLabel ) },
+            { CKA_TOKEN,            NULL /* &trueObject */,       sizeof( CK_BBOOL )             },
+            { CKA_SIGN,             NULL /* &trueObject */,       sizeof( CK_BBOOL )             },
+            { CKA_MODULUS,          pxRsaParams->modulus + 1,     MODULUS_LENGTH                 },
+            { CKA_PRIVATE_EXPONENT, pxRsaParams->d + 1,           D_LENGTH                       },
+            { CKA_PUBLIC_EXPONENT,  pxRsaParams->e + 1,           E_LENGTH                       },
+            { CKA_PRIME_1,          pxRsaParams->prime1 + 1,      PRIME_1_LENGTH                 },
+            { CKA_PRIME_2,          pxRsaParams->prime2 + 1,      PRIME_2_LENGTH                 },
+            { CKA_EXPONENT_1,       pxRsaParams->exponent1 + 1,   EXPONENT_1_LENGTH              },
+            { CKA_EXPONENT_2,       pxRsaParams->exponent2 + 1,   EXPONENT_2_LENGTH              },
+            { CKA_COEFFICIENT,      pxRsaParams->coefficient + 1, COEFFICIENT_LENGTH             }
         };
 
         /* Aggregate initializers must not use the address of an automatic variable. */
@@ -615,9 +615,9 @@ static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
         privateKeyTemplate[ 4 ].pValue = &xTrueObject;
 
         xResult = xFunctionList->C_CreateObject( xSession,
-                                               ( CK_ATTRIBUTE_PTR ) &privateKeyTemplate,
-                                               sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                               &xObjectHandle );
+                                                 ( CK_ATTRIBUTE_PTR ) &privateKeyTemplate,
+                                                 sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                                 &xObjectHandle );
     }
 
     if( NULL != pxRsaParams )
@@ -631,9 +631,9 @@ static CK_RV prvProvisionPrivateRSAKey( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvProvisionPrivateKey( CK_SESSION_HANDLE xSession,
-                                  const char * pcPrivateKey,
-                                  size_t xPrivateKeyLength,
-                                  const char * pcLabel )
+                                     const char * pcPrivateKey,
+                                     size_t xPrivateKeyLength,
+                                     const char * pcLabel )
 {
     CK_RV xResult = CKR_OK;
     mbedtls_pk_type_t xMbedKeyType = MBEDTLS_PK_NONE;
@@ -642,7 +642,7 @@ static CK_RV prvProvisionPrivateKey( CK_SESSION_HANDLE xSession,
 
     mbedtls_pk_init( &xMbedPkContext );
     xMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, ( const uint8_t * ) pcPrivateKey,
-                                       xPrivateKeyLength, NULL, 0 );
+                                        xPrivateKeyLength, NULL, 0 );
 
     if( xMbedResult != 0 )
     {
@@ -681,9 +681,9 @@ static CK_RV prvProvisionPrivateKey( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
-                                   const char * pcCertificate,
-                                   size_t xCertificateLength,
-                                   const char * pcLabel )
+                                      const char * pcCertificate,
+                                      size_t xCertificateLength,
+                                      const char * pcLabel )
 {
     PKCS11_CertificateTemplate_t xCertificateTemplate;
     CK_OBJECT_CLASS xCertificateClass = CKO_CERTIFICATE;
@@ -744,8 +744,8 @@ static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
         if( pucDerObject != NULL )
         {
             ulConversion = convert_pem_to_der( ( unsigned char * ) xCertificateTemplate.xValue.pValue,
-                                             xCertificateTemplate.xValue.ulValueLen,
-                                             pucDerObject, &xDerLen );
+                                               xCertificateTemplate.xValue.ulValueLen,
+                                               pucDerObject, &xDerLen );
 
             if( 0 != ulConversion )
             {
@@ -773,9 +773,9 @@ static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
         LogInfo( ( "Writing certificate into label \"%s\".", pcLabel ) );
 
         xResult = xFunctionList->C_CreateObject( xSession,
-                                               ( CK_ATTRIBUTE_PTR ) &xCertificateTemplate,
-                                               sizeof( xCertificateTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                               &xObjectHandle );
+                                                 ( CK_ATTRIBUTE_PTR ) &xCertificateTemplate,
+                                                 sizeof( xCertificateTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                                 &xObjectHandle );
     }
 
     if( pucDerObject != NULL )
@@ -789,8 +789,8 @@ static CK_RV prvProvisionCertificate( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 static int prvExtractEcPublicKey( CK_SESSION_HANDLE xP11Session,
-                               mbedtls_ecdsa_context * pxEcdsaContext,
-                               CK_OBJECT_HANDLE xPublicKey )
+                                  mbedtls_ecdsa_context * pxEcdsaContext,
+                                  CK_OBJECT_HANDLE xPublicKey )
 {
     CK_ATTRIBUTE xEcTemplate = { 0 };
     int xMbedtlsRet = -1;
@@ -856,13 +856,13 @@ static int prvExtractEcPublicKey( CK_SESSION_HANDLE xP11Session,
 /*-----------------------------------------------------------*/
 
 static int32_t prvPrivateKeySigningCallback( void * pxContext,
-                                          mbedtls_md_type_t xMdAlg,
-                                          const unsigned char * pucHash,
-                                          size_t xHashLen,
-                                          unsigned char * pucSig,
-                                          size_t * pxSigLen,
-                                          int ( *pxRng )( void *, unsigned char *, size_t ),
-                                          void * pxRngContext )
+                                             mbedtls_md_type_t xMdAlg,
+                                             const unsigned char * pucHash,
+                                             size_t xHashLen,
+                                             unsigned char * pucSig,
+                                             size_t * pxSigLen,
+                                             int ( * pxRng )( void *, unsigned char *, size_t ),
+                                             void * pxRngContext )
 {
     CK_RV xRet = CKR_OK;
     int32_t usResult = 0;
@@ -895,14 +895,14 @@ static int32_t prvPrivateKeySigningCallback( void * pxContext,
     if( xRet == CKR_OK )
     {
         xRet = xFunctionList->C_SignInit( xSigningContext.p11Session, &xMech,
-                                        xSigningContext.p11PrivateKey );
+                                          xSigningContext.p11PrivateKey );
     }
 
     if( xRet == CKR_OK )
     {
         *pxSigLen = sizeof( pxToBeSigned );
         xRet = xFunctionList->C_Sign( xSigningContext.p11Session, pxToBeSigned,
-                                    xToBeSignedLen, pucSig, ( CK_ULONG_PTR ) pxSigLen );
+                                      xToBeSignedLen, pucSig, ( CK_ULONG_PTR ) pxSigLen );
     }
 
     if( xRet == CKR_OK )
@@ -936,8 +936,8 @@ static int32_t prvPrivateKeySigningCallback( void * pxContext,
 /*-----------------------------------------------------------*/
 
 static int prvRandomCallback( void * pxCtx,
-                           unsigned char * pucRandom,
-                           size_t xRandomLength )
+                              unsigned char * pucRandom,
+                              size_t xRandomLength )
 {
     CK_SESSION_HANDLE * pxP11Session = ( CK_SESSION_HANDLE * ) pxCtx;
     CK_RV xRes;
@@ -967,10 +967,10 @@ static int prvRandomCallback( void * pxCtx,
 /*-----------------------------------------------------------*/
 
 static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
-                                const char * pcPrivateKeyLabel,
-                                const char * pcPublicKeyLabel,
-                                CK_OBJECT_HANDLE_PTR xPrivateKeyHandlePtr,
-                                CK_OBJECT_HANDLE_PTR xPublicKeyHandlePtr )
+                                   const char * pcPrivateKeyLabel,
+                                   const char * pcPublicKeyLabel,
+                                   CK_OBJECT_HANDLE_PTR xPrivateKeyHandlePtr,
+                                   CK_OBJECT_HANDLE_PTR xPublicKeyHandlePtr )
 {
     CK_RV xResult;
     CK_MECHANISM xMechanism = { CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0 };
@@ -981,9 +981,9 @@ static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
     CK_BBOOL xTrueObject = CK_TRUE;
     CK_ATTRIBUTE pxPublicKeyTemplate[] =
     {
-        { CKA_KEY_TYPE,  NULL /* &keyType */,       sizeof( xKeyType )        },
-        { CKA_VERIFY,    NULL /* &trueObject */,    sizeof( xTrueObject )     },
-        { CKA_EC_PARAMS, NULL /* ecParams */,       sizeof( pxEcParams )       },
+        { CKA_KEY_TYPE,  NULL /* &keyType */,         sizeof( xKeyType )         },
+        { CKA_VERIFY,    NULL /* &trueObject */,      sizeof( xTrueObject )      },
+        { CKA_EC_PARAMS, NULL /* ecParams */,         sizeof( pxEcParams )       },
         { CKA_LABEL,     ( void * ) pcPublicKeyLabel, strlen( pcPublicKeyLabel ) }
     };
 
@@ -994,10 +994,10 @@ static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
 
     CK_ATTRIBUTE privateKeyTemplate[] =
     {
-        { CKA_KEY_TYPE, NULL /* &keyType */,        sizeof( xKeyType )         },
-        { CKA_TOKEN,    NULL /* &trueObject */,     sizeof( xTrueObject )      },
-        { CKA_PRIVATE,  NULL /* &trueObject */,     sizeof( xTrueObject )      },
-        { CKA_SIGN,     NULL /* &trueObject */,     sizeof( xTrueObject )      },
+        { CKA_KEY_TYPE, NULL /* &keyType */,          sizeof( xKeyType )          },
+        { CKA_TOKEN,    NULL /* &trueObject */,       sizeof( xTrueObject )       },
+        { CKA_PRIVATE,  NULL /* &trueObject */,       sizeof( xTrueObject )       },
+        { CKA_SIGN,     NULL /* &trueObject */,       sizeof( xTrueObject )       },
         { CKA_LABEL,    ( void * ) pcPrivateKeyLabel, strlen( pcPrivateKeyLabel ) }
     };
 
@@ -1016,12 +1016,12 @@ static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
     else
     {
         xResult = xFunctionList->C_GenerateKeyPair( xSession,
-                                                  &xMechanism,
-                                                  pxPublicKeyTemplate,
-                                                  sizeof( pxPublicKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                                  privateKeyTemplate, sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                                  xPublicKeyHandlePtr,
-                                                  xPrivateKeyHandlePtr );
+                                                    &xMechanism,
+                                                    pxPublicKeyTemplate,
+                                                    sizeof( pxPublicKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                                    privateKeyTemplate, sizeof( privateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                                    xPublicKeyHandlePtr,
+                                                    xPrivateKeyHandlePtr );
     }
 
     return xResult;
@@ -1030,11 +1030,11 @@ static CK_RV prvGenerateKeyPairEC( CK_SESSION_HANDLE xSession,
 /*-----------------------------------------------------------*/
 
 bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
-                        const char * pcPrivKeyLabel,
-                        const char * pcPubKeyLabel,
-                        char * pcCsrBuffer,
-                        size_t xCsrBufferLength,
-                        size_t * pxOutCsrLength )
+                         const char * pcPrivKeyLabel,
+                         const char * pcPubKeyLabel,
+                         char * pcCsrBuffer,
+                         size_t xCsrBufferLength,
+                         size_t * pxOutCsrLength )
 {
     CK_OBJECT_HANDLE xPrivKeyHandle;
     CK_OBJECT_HANDLE xPubKeyHandle;
@@ -1052,10 +1052,10 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
     assert( pxOutCsrLength != NULL );
 
     xPkcs11Ret = prvGenerateKeyPairEC( xP11Session,
-                                   pcPrivKeyLabel,
-                                   pcPubKeyLabel,
-                                   &xPrivKeyHandle,
-                                   &xPubKeyHandle );
+                                       pcPrivKeyLabel,
+                                       pcPubKeyLabel,
+                                       &xPrivKeyHandle,
+                                       &xPubKeyHandle );
 
     if( xPkcs11Ret == CKR_OK )
     {
@@ -1098,8 +1098,8 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
             mbedtls_x509write_csr_set_key( &xReq, &xPrivKey );
 
             usMbedtlsRet = mbedtls_x509write_csr_pem( &xReq, ( unsigned char * ) pcCsrBuffer,
-                                                    xCsrBufferLength, &prvRandomCallback,
-                                                    &xP11Session );
+                                                      xCsrBufferLength, &prvRandomCallback,
+                                                      &xP11Session );
         }
 
         mbedtls_x509write_csr_free( &xReq );
@@ -1115,9 +1115,9 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
 /*-----------------------------------------------------------*/
 
 bool xLoadCertificate( CK_SESSION_HANDLE xP11Session,
-                      const char * pcCertificate,
-                      const char * pcLabel,
-                      size_t xCertificateLength )
+                       const char * pcCertificate,
+                       const char * pcLabel,
+                       size_t xCertificateLength )
 {
     CK_RV xRet;
 
@@ -1125,9 +1125,9 @@ bool xLoadCertificate( CK_SESSION_HANDLE xP11Session,
     assert( pcLabel != NULL );
 
     xRet = prvProvisionCertificate( xP11Session,
-                                pcCertificate,
-                                xCertificateLength + 1, /* MbedTLS includes null character in length for PEM objects. */
-                                pcLabel );
+                                    pcCertificate,
+                                    xCertificateLength + 1, /* MbedTLS includes null character in length for PEM objects. */
+                                    pcLabel );
 
     return( xRet == CKR_OK );
 }

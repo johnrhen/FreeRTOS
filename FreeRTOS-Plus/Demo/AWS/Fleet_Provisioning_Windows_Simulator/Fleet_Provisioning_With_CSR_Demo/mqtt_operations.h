@@ -53,8 +53,8 @@ typedef void (* MQTTPublishCallback_t )( MQTTPublishInfo_t * pxPublishInfo,
  * false otherwise.
  */
 bool xEstablishMqttSession( MQTTPublishCallback_t xPublishCallback,
-                           char * pcClientCertLabel,
-                           char * pcPrivateKeyLabel );
+                            char * pcClientCertLabel,
+                            char * pcPrivateKeyLabel );
 
 /**
  * @brief Disconnect the MQTT connection.
@@ -74,7 +74,7 @@ bool xDisconnectMqttSession( void );
  * false otherwise.
  */
 bool xSubscribeToTopic( const char * pcTopicFilter,
-                       uint16_t usTopicFilterLength );
+                        uint16_t usTopicFilterLength );
 
 /**
  * @brief Unsubscribe from a MQTT topic filter.
@@ -86,7 +86,7 @@ bool xSubscribeToTopic( const char * pcTopicFilter,
  * false otherwise.
  */
 bool xUnsubscribeFromTopic( const char * pcTopicFilter,
-                           uint16_t usTopicFilterLength );
+                            uint16_t usTopicFilterLength );
 
 /**
  * @brief Publish a message to a MQTT topic.
@@ -100,9 +100,9 @@ bool xUnsubscribeFromTopic( const char * pcTopicFilter,
  * false otherwise.
  */
 bool xPublishToTopic( const char * pcTopic,
-                     uint16_t usTopicLength,
-                     const char * pcMessage,
-                     size_t xMessageLength );
+                      uint16_t usTopicLength,
+                      const char * pcMessage,
+                      size_t xMessageLength );
 
 /**
  * @brief Invoke the core MQTT library's process loop function.
