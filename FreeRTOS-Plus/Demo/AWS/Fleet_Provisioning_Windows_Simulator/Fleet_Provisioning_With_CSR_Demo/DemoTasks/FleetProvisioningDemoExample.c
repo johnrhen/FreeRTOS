@@ -592,7 +592,7 @@ int prvFleetProvisioningTask(void* pvParameters)
             xStatus = false;
         }
 
-        xStatus = generateKeyAndCsr( xP11Session,
+        xStatus = xGenerateKeyAndCsr( xP11Session,
                                         pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
                                         pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
                                         pcCsr,
@@ -602,7 +602,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         {
             LogError(("Failed to generate Key and Certificate Signing Request."));
         }
-        pkcs11CloseSession( xP11Session );
+        xPkcs11CloseSession( xP11Session );
 
 
         /**** Connect to AWS IoT Core with provisioning claim credentials *****/
@@ -701,7 +701,7 @@ int prvFleetProvisioningTask(void* pvParameters)
         if( xStatus == true )
         {
             /* Save the certificate into PKCS #11. */
-            xStatus = loadCertificate( xP11Session,
+            xStatus = xLoadCertificate( xP11Session,
                                       pcCertificate,
                                       pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
                                       xCertificateLength );
