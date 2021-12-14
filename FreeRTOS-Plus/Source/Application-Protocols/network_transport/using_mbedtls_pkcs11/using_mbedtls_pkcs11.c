@@ -986,6 +986,9 @@ int32_t TLS_FreeRTOS_recv( NetworkContext_t * pNetworkContext,
         ( tlsStatus == MBEDTLS_ERR_SSL_WANT_READ ) ||
         ( tlsStatus == MBEDTLS_ERR_SSL_WANT_WRITE ) )
     {
+        if (tlsStatus == MBEDTLS_ERR_SSL_TIMEOUT) {
+            LogDebug("Timeout");
+        }
         LogDebug( ( "Failed to read data. However, a read can be retried on this error. "
                     "mbedTLSError= %s : %s.",
                     mbedtlsHighLevelCodeOrDefault( tlsStatus ),
