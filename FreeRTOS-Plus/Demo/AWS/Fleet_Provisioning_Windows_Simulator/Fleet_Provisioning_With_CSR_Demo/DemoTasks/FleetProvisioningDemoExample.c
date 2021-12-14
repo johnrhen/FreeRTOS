@@ -274,6 +274,7 @@ static void prvProvisioningPublishCallback( MQTTPublishInfo_t * pPublishInfo,
 {
     FleetProvisioningStatus_t status;
     FleetProvisioningTopic_t api;
+    const char * cborDump;
 
     /* Silence compiler warnings about unused variables. */
     ( void ) usPacketIdentifier;
@@ -293,6 +294,10 @@ static void prvProvisioningPublishCallback( MQTTPublishInfo_t * pPublishInfo,
         {
             LogInfo( ( "Received accepted response from Fleet Provisioning CreateCertificateFromCsr API." ) );
 
+            cborDump = getStringFromCbor( ( const uint8_t * ) pPublishInfo->pPayload, pPublishInfo->payloadLength );
+            LogDebug( ( "Payload: %s", cborDump ) );
+            free( ( void * ) cborDump );
+
             xResponseStatus = ResponseAccepted;
 
             /* Copy the payload from the MQTT library's buffer to #pucPayloadBuffer. */
@@ -306,11 +311,19 @@ static void prvProvisioningPublishCallback( MQTTPublishInfo_t * pPublishInfo,
         {
             LogError( ( "Received rejected response from Fleet Provisioning CreateCertificateFromCsr API." ) );
 
+            cborDump = getStringFromCbor( ( const uint8_t * ) pPublishInfo->pPayload, pPublishInfo->payloadLength );
+            LogDebug( ( "Payload: %s", cborDump ) );
+            free( ( void * ) cborDump );
+
             xResponseStatus = ResponseRejected;
         }
         else if( api == FleetProvCborRegisterThingAccepted )
         {
             LogInfo( ( "Received accepted response from Fleet Provisioning RegisterThing API." ) );
+
+            cborDump = getStringFromCbor( ( const uint8_t * ) pPublishInfo->pPayload, pPublishInfo->payloadLength );
+            LogDebug( ( "Payload: %s", cborDump ) );
+            free( ( void * ) cborDump );
 
             xResponseStatus = ResponseAccepted;
 
@@ -324,6 +337,10 @@ static void prvProvisioningPublishCallback( MQTTPublishInfo_t * pPublishInfo,
         else if( api == FleetProvCborRegisterThingRejected )
         {
             LogError( ( "Received rejected response from Fleet Provisioning RegisterThing API." ) );
+
+            cborDump = getStringFromCbor( ( const uint8_t * ) pPublishInfo->pPayload, pPublishInfo->payloadLength );
+            LogDebug( ( "Payload: %s", cborDump ) );
+            free( ( void * ) cborDump );
 
             xResponseStatus = ResponseRejected;
         }
